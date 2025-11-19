@@ -1,0 +1,211 @@
+@{
+    ViewData["Title"] = "Demandes en attente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="fas fa-clipboard-list"></i> Demandes en attente
+            </h2>
+
+            @if (!string.IsNullOrEmpty(TempData["SuccessMessage"]?.ToString()))
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(TempData["ErrorMessage"]?.ToString()))
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>@TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <!-- Demandes de congés -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-calendar-alt"></i> Demandes de congés
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.PendingLeaves != null && ((List<PlateformeRHCollaborative.Web.Models.Leave>)ViewBag.PendingLeaves).Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Employé</th>
+                                        <th>Date de début</th>
+                                        <th>Date de fin</th>
+                                        <th>Raison</th>
+                                        <th>Date de demande</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var leave in (List<PlateformeRHCollaborative.Web.Models.Leave>)ViewBag.PendingLeaves)
+                                    {
+                                        <tr>
+                                            <td>@(leave.Employee?.Email ?? "N/A")</td>
+                                            <td>@leave.StartDate.ToString("dd/MM/yyyy")</td>
+                                            <td>@leave.EndDate.ToString("dd/MM/yyyy")</td>
+                                            <td>@leave.Reason</td>
+                                            <td>@leave.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <form asp-action="ApproveLeave" method="post" class="d-inline">
+                                                        <input type="hidden" name="id" value="@leave.Id" />
+                                                        <button type="submit" class="btn btn-sm btn-success">
+                                                            <i class="fas fa-check"></i> Accepter
+                                                        </button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#rejectLeaveModal@(leave.Id)">
+                                                        <i class="fas fa-times"></i> Refuser
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Modal pour refus de congé -->
+                                        <div class="modal fade" id="rejectLeaveModal@(leave.Id)" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Refuser la demande de congé</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <form asp-action="RejectLeave" method="post">
+                                                        <div class="modal-body">
+                                                            <input type="hidden" name="id" value="@leave.Id" />
+                                                            <div class="mb-3">
+                                                                <label for="rejectionReason@(leave.Id)" class="form-label">
+                                                                    Motif du refus <span class="text-danger">*</span>
+                                                                </label>
+                                                                <textarea 
+                                                                    id="rejectionReason@(leave.Id)" 
+                                                                    name="rejectionReason" 
+                                                                    class="form-control" 
+                                                                    rows="3" 
+                                                                    required
+                                                                    placeholder="Veuillez indiquer le motif du refus..."></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                            <button type="submit" class="btn btn-danger">Confirmer le refus</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Aucune demande de congé en attente.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Demandes de télétravail -->
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-home"></i> Demandes de télétravail
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.PendingTeleworks != null && ((List<PlateformeRHCollaborative.Web.Models.Telework>)ViewBag.PendingTeleworks).Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Employé</th>
+                                        <th>Date de début</th>
+                                        <th>Date de fin</th>
+                                        <th>Motif</th>
+                                        <th>Date de demande</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var telework in (List<PlateformeRHCollaborative.Web.Models.Telework>)ViewBag.PendingTeleworks)
+                                    {
+                                        <tr>
+                                            <td>@(telework.Employee?.Email ?? "N/A")</td>
+                                            <td>@telework.StartDate.ToString("dd/MM/yyyy")</td>
+                                            <td>@telework.EndDate.ToString("dd/MM/yyyy")</td>
+                                            <td>@(telework.Motif ?? "N/A")</td>
+                                            <td>@telework.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <form asp-action="ApproveTelework" method="post" class="d-inline">
+                                                        <input type="hidden" name="id" value="@telework.Id" />
+                                                        <button type="submit" class="btn btn-sm btn-success">
+                                                            <i class="fas fa-check"></i> Accepter
+                                                        </button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#rejectTeleworkModal@(telework.Id)">
+                                                        <i class="fas fa-times"></i> Refuser
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Modal pour refus de télétravail -->
+                                        <div class="modal fade" id="rejectTeleworkModal@(telework.Id)" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Refuser la demande de télétravail</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <form asp-action="RejectTelework" method="post">
+                                                        <div class="modal-body">
+                                                            <input type="hidden" name="id" value="@telework.Id" />
+                                                            <div class="mb-3">
+                                                                <label for="rejectionReason@(telework.Id)" class="form-label">
+                                                                    Motif du refus <span class="text-danger">*</span>
+                                                                </label>
+                                                                <textarea 
+                                                                    id="rejectionReason@(telework.Id)" 
+                                                                    name="rejectionReason" 
+                                                                    class="form-control" 
+                                                                    rows="3" 
+                                                                    required
+                                                                    placeholder="Veuillez indiquer le motif du refus..."></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                            <button type="submit" class="btn btn-danger">Confirmer le refus</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Aucune demande de télétravail en attente.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

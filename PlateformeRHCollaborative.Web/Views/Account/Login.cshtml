@@ -1,0 +1,66 @@
+@{
+    ViewData["Title"] = "Connexion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="login-page-wrapper">
+    <div class="login-form-container">
+        <div class="login-form-card">
+            <div class="login-form-header">
+                <div class="login-logo-icon">
+                    <i class="fas fa-sign-in-alt"></i>
+                </div>
+                <h2 class="login-form-title">Connexion</h2>
+                <p class="login-form-subtitle">Connectez-vous à votre compte CollabRH</p>
+            </div>
+
+            <div class="login-form-body">
+                <form asp-action="Login" method="post" class="login-form">
+                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                    {
+                        <div class="alert alert-danger login-error-alert" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>@ViewBag.ErrorMessage
+                        </div>
+                    }
+
+                    <div class="login-form-group">
+                        <label for="email" class="login-form-label">
+                            <i class="fas fa-envelope"></i> Email
+                        </label>
+                        <input 
+                            id="email" 
+                            name="email" 
+                            type="email" 
+                            class="login-form-input" 
+                            placeholder="votre@email.com" 
+                            required 
+                            autocomplete="email" />
+                    </div>
+
+                    <div class="login-form-group">
+                        <label for="password" class="login-form-label">
+                            <i class="fas fa-lock"></i> Mot de passe
+                        </label>
+                        <input 
+                            id="password" 
+                            name="password" 
+                            type="password" 
+                            class="login-form-input" 
+                            placeholder="Votre mot de passe" 
+                            required 
+                            autocomplete="current-password" />
+                    </div>
+
+                    <button type="submit" class="login-form-submit-btn">
+                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

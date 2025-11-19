@@ -1,0 +1,92 @@
+@{
+    ViewData["Title"] = "Télétravail";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold" style="color: #28a745;">
+            <i class="fas fa-home"></i> Télétravail
+        </h2>
+    </div>
+
+    <div class="row g-4">
+        <!-- Nouvelle demande -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card border-0 shadow-sm h-100 text-center p-4" style="transition: transform 0.3s; border-radius: 15px; cursor: pointer;" onclick="location.href='@Url.Action("Create")';">
+                <div class="card-body">
+                    <div class="mb-3" style="font-size: 3rem; color: #28a745;">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Nouvelle demande</h5>
+                    <p class="card-text text-muted">Soumettez une nouvelle demande de télétravail</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mes jours -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card border-0 shadow-sm h-100 text-center p-4" style="transition: transform 0.3s; border-radius: 15px; cursor: pointer;" onclick="location.href='@Url.Action("MyTelework")';">
+                <div class="card-body">
+                    <div class="mb-3" style="font-size: 3rem; color: #0056b3;">
+                        <i class="fas fa-calendar-week"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Mes jours de télétravail</h5>
+                    <p class="card-text text-muted">Consultez vos demandes en cours</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historique -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card border-0 shadow-sm h-100 text-center p-4" style="transition: transform 0.3s; border-radius: 15px; cursor: pointer;" onclick="location.href='@Url.Action("History")';">
+                <div class="card-body">
+                    <div class="mb-3" style="font-size: 3rem; color: #17a2b8;">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Historique</h5>
+                    <p class="card-text text-muted">Voir toutes vos demandes passées</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques rapides -->
+    <div class="row g-4 mt-2">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3" style="border-radius: 15px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white;">
+                <h6 class="mb-2">Total</h6>
+                <h3 class="fw-bold mb-0">24</h3>
+                <small>Jours demandés</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3" style="border-radius: 15px; background: linear-gradient(135deg, #17a2b8 0%, #138496 100%); color: white;">
+                <h6 class="mb-2">En attente</h6>
+                <h3 class="fw-bold mb-0">2</h3>
+                <small>Demandes</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3" style="border-radius: 15px; background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); color: white;">
+                <h6 class="mb-2">Ce mois</h6>
+                <h3 class="fw-bold mb-0">5</h3>
+                <small>Jours</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3" style="border-radius: 15px; background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%); color: white;">
+                <h6 class="mb-2">Moyenne</h6>
+                <h3 class="fw-bold mb-0">2.4</h3>
+                <small>Jours/semaine</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    }
+</style>
+

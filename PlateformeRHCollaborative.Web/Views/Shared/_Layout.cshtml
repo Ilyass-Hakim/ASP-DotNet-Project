@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CollabRH</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/img/favicon.ico" />
+
+    <!-- Azia CSS -->
+    <link rel="stylesheet" href="~/css/azia.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Font Awesome -->
+    <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
+
+    @RenderSection("Styles", required: false)
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="az-header">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="az-header-left">
+                <a asp-controller="Home" asp-action="Index" class="az-logo">Collab<span>RH</span></a>
+            </div>
+
+            <div class="az-header-menu">
+                <ul class="nav">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Leave" asp-action="Index" class="nav-link">Congés</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Telework" asp-action="Index" class="nav-link">Télétravail</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Document" asp-action="Index" class="nav-link">Documents RH</a>
+                        </li>
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Requests" asp-action="Index" class="nav-link">Demandes</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("RH"))
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Dashboard" asp-action="Index" class="nav-link">Tableau de bord RH</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Register" class="nav-link">Créer un compte</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link">Accueil</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="az-header-right d-flex align-items-center">
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    var userName = User.Identity?.Name ?? "";
+                    var firstName = userName.Contains("@") ? userName.Split('@')[0] : userName;
+                    var displayName = firstName.Contains('.') ? firstName.Split('.')[0] : firstName;
+                    displayName = displayName.Length > 0 ? char.ToUpper(displayName[0]) + displayName.Substring(1).ToLower() : "U";
+                    var userInitial = displayName.Length > 0 ? displayName[0].ToString().ToUpper() : "U";
+                    var roleBadge = "";
+                    if (User.IsInRole("RH"))
+                    {
+                        roleBadge = "RH";
+                    }
+                    else if (User.IsInRole("Manager"))
+                    {
+                        roleBadge = "Manager";
+                    }
+                    else
+                    {
+                        roleBadge = "Employe";
+                    }
+                    <div class="dropdown">
+                        <button class="btn btn-link text-decoration-none user-menu-btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="user-avatar">
+                                <span class="user-initial">@userInitial</span>
+                            </div>
+                            <span class="user-name-display">@displayName</span>
+                            @if (!string.IsNullOrEmpty(roleBadge))
+                            {
+                                <span class="badge user-role-badge ms-2">@roleBadge</span>
+                            }
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li class="dropdown-header">
+                                <div class="d-flex align-items-center">
+                                    <div class="user-avatar user-avatar-small me-2">
+                                        <span class="user-initial">@userInitial</span>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">@displayName</div>
+                                        <small class="text-muted">@userName</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Mon profil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Paramètres</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" asp-controller="Account" asp-action="Logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-sm ms-3">Se connecter</a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <main class="az-content">
+        @RenderBody()
+    </main>
+
+    <div class="az-footer text-center mt-4">
+        <div class="container">
+            <span>&copy; 2025 Collab<strong>RH</strong>. Tous droits réservés.</span>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Azia JS -->
+    <script src="~/js/azia.js"></script>
+    <script src="~/js/site.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

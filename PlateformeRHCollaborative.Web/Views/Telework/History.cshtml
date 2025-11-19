@@ -1,0 +1,157 @@
+@model IEnumerable<PlateformeRHCollaborative.Web.Models.Telework>
+
+@{
+    ViewData["Title"] = "Historique du télétravail";
+    var currentYear = DateTime.Now.Year;
+    var thisYearTeleworks = Model.Where(t => t.StartDate.Year == currentYear || t.CreatedAt.Year == currentYear).ToList();
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold" style="color: #28a745;">
+            <i class="fas fa-history"></i> Historique du télétravail
+        </h2>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+    </div>
+
+    @if (!thisYearTeleworks.Any())
+    {
+        <div class="alert alert-info text-center py-5" role="alert" style="border-radius: 15px;">
+            <i class="fas fa-info-circle fa-3x mb-3" style="color: #28a745;"></i>
+            <h5 class="alert-heading">Aucun télétravail enregistré</h5>
+            <p class="mb-0">Aucun jour de télétravail enregistré pour l'année @currentYear.</p>
+            <hr class="my-3">
+            <a asp-action="Create" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i> Créer une demande
+            </a>
+        </div>
+    }
+    else
+    {
+        <!-- Statistiques rapides -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="card border-0 text-white text-center p-3" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); border-radius: 15px;">
+                    <h6 class="mb-2">Total</h6>
+                    <h3 class="fw-bold mb-0">@thisYearTeleworks.Count</h3>
+                    <small>Demandes @currentYear</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 text-white text-center p-3" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); border-radius: 15px;">
+                    <h6 class="mb-2">Approuvées</h6>
+                    <h3 class="fw-bold mb-0">@thisYearTeleworks.Count(t => t.Status == "Approved")</h3>
+                    <small>Demandes</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 text-white text-center p-3" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); border-radius: 15px;">
+                    <h6 class="mb-2">En attente</h6>
+                    <h3 class="fw-bold mb-0">@thisYearTeleworks.Count(t => t.Status == "Pending")</h3>
+                    <small>Demandes</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 text-white text-center p-3" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-radius: 15px;">
+                    <h6 class="mb-2">Refusées</h6>
+                    <h3 class="fw-bold mb-0">@thisYearTeleworks.Count(t => t.Status == "Rejected")</h3>
+                    <small>Demandes</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tableau des télétravails -->
+        <div class="card border-0 shadow-sm" style="border-radius: 15px;">
+            <div class="card-header bg-white border-0 p-3">
+                <h5 class="mb-0 fw-bold">
+                    <i class="fas fa-list-alt"></i> Détail des télétravails @currentYear
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead style="background-color: #f8f9fa;">
+                            <tr>
+                                <th scope="col" class="ps-4">Date de début</th>
+                                <th scope="col">Date de fin</th>
+                                <th scope="col">Durée</th>
+                                <th scope="col">Raison</th>
+                                <th scope="col">Statut</th>
+                                <th scope="col" class="pe-4">Date de demande</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in thisYearTeleworks.OrderByDescending(t => t.CreatedAt))
+                            {
+                                <tr>
+                                    <td class="ps-4">@item.StartDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@((item.EndDate - item.StartDate).Days + 1) jour(s)</td>
+                                    <td>
+                                        <small class="text-muted">
+                                            @if (!string.IsNullOrEmpty(item.Motif))
+                                            {
+                                                @if (item.Motif.Length > 50)
+                                                {
+                                                    <span title="@item.Motif">@item.Motif.Substring(0, 50)...</span>
+                                                }
+                                                else
+                                                {
+                                                    @item.Motif
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">-</span>
+                                            }
+                                        </small>
+                                    </td>
+                                    <td>
+                                        @{
+                                            var badgeClass = item.Status switch
+                                            {
+                                                "Approved" => "bg-success",
+                                                "Rejected" => "bg-danger",
+                                                "Pending" => "bg-warning",
+                                                _ => "bg-secondary"
+                                            };
+                                            var statusText = item.Status switch
+                                            {
+                                                "Approved" => "Approuvée",
+                                                "Rejected" => "Refusée",
+                                                "Pending" => "En attente",
+                                                _ => item.Status
+                                            };
+                                        }
+                                        <span class="badge @badgeClass">@statusText</span>
+                                    </td>
+                                    <td class="pe-4">
+                                        <small class="text-muted">@item.CreatedAt.ToString("dd/MM/yyyy")</small>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .table thead th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+    }
+    
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+</style>
+
+

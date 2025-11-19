@@ -1,0 +1,62 @@
+@model PlateformeRHCollaborative.Web.Models.Telework
+
+@{
+    ViewData["Title"] = "Nouvelle demande de télétravail";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-lg" style="border-radius: 15px;">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); border-radius: 15px 15px 0 0;">
+                    <h3 class="mb-0">
+                        <i class="fas fa-home"></i> Nouvelle demande de télétravail
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="StartDate" class="form-label fw-bold">Date</label>
+                            <input asp-for="StartDate" type="date" class="form-control form-control-lg" required />
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="EndDate" class="form-label fw-bold">Date de fin</label>
+                            <input asp-for="EndDate" type="date" class="form-control form-control-lg" required />
+                            <span asp-validation-for="EndDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Motif" class="form-label fw-bold">Raison</label>
+                            <textarea asp-for="Motif" class="form-control" rows="4" placeholder="Veuillez décrire la raison de votre demande de télétravail..." required></textarea>
+                            <span asp-validation-for="Motif" class="text-danger"></span>
+                        </div>
+
+                        <div class="alert alert-info" role="alert">
+                            <i class="fas fa-info-circle"></i> <strong>Note:</strong> Votre demande sera examinée par votre manager dans les plus brefs délais.
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">
+                                <i class="fas fa-times"></i> Annuler
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg px-5 rounded-pill">
+                                <i class="fas fa-paper-plane"></i> Soumettre
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
