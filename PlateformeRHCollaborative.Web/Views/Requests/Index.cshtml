@@ -52,7 +52,7 @@
                                     @foreach (var leave in (List<PlateformeRHCollaborative.Web.Models.Leave>)ViewBag.PendingLeaves)
                                     {
                                         <tr>
-                                            <td>@(leave.Employee?.Email ?? "N/A")</td>
+                                            <td>@(leave.Employee?.Nom ?? leave.Employee?.Email ?? "N/A")</td>
                                             <td>@leave.StartDate.ToString("dd/MM/yyyy")</td>
                                             <td>@leave.EndDate.ToString("dd/MM/yyyy")</td>
                                             <td>@leave.Reason</td>
@@ -142,7 +142,7 @@
                                     @foreach (var telework in (List<PlateformeRHCollaborative.Web.Models.Telework>)ViewBag.PendingTeleworks)
                                     {
                                         <tr>
-                                            <td>@(telework.Employee?.Email ?? "N/A")</td>
+                                            <td>@(telework.Employee?.Nom ?? telework.Employee?.Email ?? "N/A")</td>
                                             <td>@telework.StartDate.ToString("dd/MM/yyyy")</td>
                                             <td>@telework.EndDate.ToString("dd/MM/yyyy")</td>
                                             <td>@(telework.Motif ?? "N/A")</td>

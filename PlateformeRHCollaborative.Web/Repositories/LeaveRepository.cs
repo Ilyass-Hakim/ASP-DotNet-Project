@@ -15,12 +15,19 @@ public class LeaveRepository : ILeaveRepository
 
 	public async Task<IEnumerable<Leave>> GetAllAsync()
 	{
-		return await _db.Leaves.AsNoTracking().ToListAsync();
+		// Charger également l'employé lié pour permettre l'affichage du nom / email
+		return await _db.Leaves
+			.Include(l => l.Employee)
+			.AsNoTracking()
+			.ToListAsync();
 	}
 
 	public async Task<Leave?> GetByIdAsync(int id)
 	{
-		return await _db.Leaves.FindAsync(id);
+		// Inclure systématiquement l'employé pour les traitements métier côté manager
+		return await _db.Leaves
+			.Include(l => l.Employee)
+			.FirstOrDefaultAsync(l => l.Id == id);
 	}
 
 	public async Task AddAsync(Leave entity)

@@ -1,0 +1,269 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\services\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\services\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\repositories\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\repositories\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\migrations\\20251030025850_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\migrations\\20251030025850_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\hubs\\notificationshub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\hubs\\notificationshub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|c:\\users\\asus rog g16\\desktop\\dotnet_project\\plateformerhcollaborative.web\\models\\documentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2707F3A9-0AAB-4F65-BE35-7B164AE46414}|PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj|solutionrelative:plateformerhcollaborative.web\\models\\documentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 13,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Views\\Dashboard\\Index.cshtml",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Views\\Dashboard\\Index.cshtml",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Views\\Dashboard\\Index.cshtml",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Views\\Dashboard\\Index.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAGkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T10:28:42.111Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DocumentService.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Services\\DocumentService.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Services\\DocumentService.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Services\\DocumentService.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Services\\DocumentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T10:28:25.218Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "20251030025850_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Migrations\\20251030025850_InitialCreate.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Migrations\\20251030025850_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Migrations\\20251030025850_InitialCreate.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Migrations\\20251030025850_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T10:27:24.952Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NotificationsHub.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Hubs\\NotificationsHub.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Hubs\\NotificationsHub.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Hubs\\NotificationsHub.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Hubs\\NotificationsHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T10:27:06.291Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T10:23:08.867Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Controllers\\DashboardController.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T09:56:16.619Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Views\\Account\\Register.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAACkAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T11:11:13.08Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAALsAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T11:08:25.165Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DocumentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Repositories\\DocumentRepository.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Repositories\\DocumentRepository.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Repositories\\DocumentRepository.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Repositories\\DocumentRepository.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwBwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T11:08:11.152Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Notification.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Models\\Notification.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Models\\Notification.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Models\\Notification.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Models\\Notification.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T11:07:42.571Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "DocumentRequest.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Models\\DocumentRequest.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Models\\DocumentRequest.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Models\\DocumentRequest.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Models\\DocumentRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T11:06:44.775Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\appsettings.json",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\appsettings.json",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\appsettings.json",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-03T10:47:09.362Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T10:40:33.491Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T10:37:56.555Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Models\\Employee.cs",
+              "RelativeDocumentMoniker": "PlateformeRHCollaborative.Web\\Models\\Employee.cs",
+              "ToolTip": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\Models\\Employee.cs",
+              "RelativeToolTip": "PlateformeRHCollaborative.Web\\Models\\Employee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T10:37:22.951Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

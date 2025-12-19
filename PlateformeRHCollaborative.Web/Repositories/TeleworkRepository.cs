@@ -15,12 +15,19 @@ public class TeleworkRepository : ITeleworkRepository
 
 	public async Task<IEnumerable<Telework>> GetAllAsync()
 	{
-		return await _db.Teleworks.AsNoTracking().ToListAsync();
+		// Charger également l'employé lié pour permettre l'affichage du nom / email
+		return await _db.Teleworks
+			.Include(t => t.Employee)
+			.AsNoTracking()
+			.ToListAsync();
 	}
 
 	public async Task<Telework?> GetByIdAsync(int id)
 	{
-		return await _db.Teleworks.FindAsync(id);
+		// Inclure systématiquement l'employé pour les traitements métier côté manager
+		return await _db.Teleworks
+			.Include(t => t.Employee)
+			.FirstOrDefaultAsync(t => t.Id == id);
 	}
 
 	public async Task AddAsync(Telework entity)

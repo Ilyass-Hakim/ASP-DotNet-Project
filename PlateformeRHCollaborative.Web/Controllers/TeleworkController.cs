@@ -16,7 +16,7 @@ public class TeleworkController : Controller
     private readonly TeleworkService _service;
     private readonly IHubContext<NotificationsHub> _hubContext;
     private readonly UserManager<IdentityUser> _userManager;
-    private readonly ApplicationDbContext _context;
+		private readonly ApplicationDbContext _context;
 
     public TeleworkController(TeleworkService service, IHubContext<NotificationsHub> hubContext, UserManager<IdentityUser> userManager, ApplicationDbContext context)
     {
@@ -97,14 +97,46 @@ public class TeleworkController : Controller
 
     public async Task<IActionResult> MyTelework()
     {
-        var items = await _service.GetAllAsync();
-        return View("List", items);
+		// Filtrer le télétravail pour l'employé actuellement connecté
+		var userId = _userManager.GetUserId(User);
+		if (string.IsNullOrEmpty(userId))
+		{
+			ViewBag.ErrorMessage = "Utilisateur non authentifié.";
+			return View("List", Enumerable.Empty<Telework>());
+		}
+
+		var employee = await _context.Employees.FirstOrDefaultAsync(e => e.UserId == userId);
+		if (employee == null)
+		{
+			ViewBag.ErrorMessage = "Aucun employé trouvé pour votre compte. Veuillez contacter les RH.";
+			return View("List", Enumerable.Empty<Telework>());
+		}
+
+		var items = await _service.GetAllAsync();
+		var myItems = items.Where(t => t.EmployeeId == employee.Id).ToList();
+		return View("List", myItems);
     }
 
     public async Task<IActionResult> History()
     {
-        var items = await _service.GetAllAsync();
-        return View("History", items);
+		// Historique limité à l'employé actuellement connecté
+		var userId = _userManager.GetUserId(User);
+		if (string.IsNullOrEmpty(userId))
+		{
+			ViewBag.ErrorMessage = "Utilisateur non authentifié.";
+			return View("History", Enumerable.Empty<Telework>());
+		}
+
+		var employee = await _context.Employees.FirstOrDefaultAsync(e => e.UserId == userId);
+		if (employee == null)
+		{
+			ViewBag.ErrorMessage = "Aucun employé trouvé pour votre compte. Veuillez contacter les RH.";
+			return View("History", Enumerable.Empty<Telework>());
+		}
+
+		var items = await _service.GetAllAsync();
+		var myItems = items.Where(t => t.EmployeeId == employee.Id).ToList();
+		return View("History", myItems);
     }
 }
 

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 
     <!-- Font Awesome -->
-    <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/lib/fontawesome-free/css/all.min.css" rel="stylesheet" />
 
     @RenderSection("Styles", required: false)
     
@@ -96,20 +96,20 @@
                         roleBadge = "Employe";
                     }
                     <div class="dropdown">
-                        <button class="btn btn-link text-decoration-none user-menu-btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-link text-decoration-none user-menu-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                             <div class="user-avatar">
                                 <span class="user-initial">@userInitial</span>
                             </div>
                             <span class="user-name-display">@displayName</span>
                             @if (!string.IsNullOrEmpty(roleBadge))
                             {
-                                <span class="badge user-role-badge ms-2">@roleBadge</span>
+                                <span class="badge user-role-badge ml-2">@roleBadge</span>
                             }
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li class="dropdown-header">
                                 <div class="d-flex align-items-center">
-                                    <div class="user-avatar user-avatar-small me-2">
+                                    <div class="user-avatar user-avatar-small mr-2">
                                         <span class="user-initial">@userInitial</span>
                                     </div>
                                     <div>
@@ -122,13 +122,20 @@
                             <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Mon profil</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Paramètres</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" asp-controller="Account" asp-action="Logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+                            <li>
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                    </button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 }
                 else
                 {
-                    <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-sm ms-3">Se connecter</a>
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-sm ml-3">Se connecter</a>
                 }
             </div>
         </div>
@@ -145,8 +152,8 @@
     </div>
 
     <!-- JS -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Azia JS -->
     <script src="~/js/azia.js"></script>
