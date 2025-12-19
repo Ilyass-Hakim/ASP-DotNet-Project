@@ -6,7 +6,7 @@
     var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
     var userName = User.Identity?.Name ?? "";
     
-    // Extraction du prénom depuis l'email
+    // Extraction du prénom
     var firstName = "";
     if (!string.IsNullOrEmpty(userName))
     {
@@ -14,7 +14,6 @@
         if (emailParts.Length > 0)
         {
             var namePart = emailParts[0];
-            // Extraire le prénom (partie avant le point ou tout si pas de point)
             if (namePart.Contains('.'))
             {
                 firstName = namePart.Split('.')[0];
@@ -23,195 +22,125 @@
             {
                 firstName = namePart;
             }
-            // Capitaliser la première lettre
             if (firstName.Length > 0)
             {
                 firstName = char.ToUpper(firstName[0]) + firstName.Substring(1).ToLower();
             }
         }
     }
-    
-    // Message de bienvenue selon disponibilité du prénom
-    var welcomeMessage = "";
-    if (!string.IsNullOrEmpty(firstName) && firstName.Length > 0 && firstName != userName)
-    {
-        var randomMessages = new[] 
-        { 
-            $"Bienvenue, {firstName} 👋",
-            $"Heureux de vous revoir, {firstName} !",
-            $"Bonjour {firstName} ! 👋"
-        };
-        var random = new Random();
-        welcomeMessage = randomMessages[random.Next(randomMessages.Length)];
-    }
-    else
-    {
-        welcomeMessage = "Bienvenue sur CollabRH 👋";
-    }
 }
 
-@if (!isAuthenticated)
-{
-    <!-- Hero Section pour utilisateurs non connectés -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="hero-content text-center">
-                <h1 class="hero-title">
-                    Collab<span class="hero-title-accent">RH</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Simplifiez la gestion de vos ressources humaines
-                </p>
-                <div class="hero-buttons">
-                    <a asp-controller="Account" asp-action="Login" class="btn btn-hero-primary">
-                        <i class="fas fa-sign-in-alt"></i> Se connecter
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-}
-else
-{
-    <!-- Hero Section pour utilisateurs connectés -->
-    <section class="hero-section-welcome">
-        <div class="container">
-            <div class="hero-content-welcome text-center">
-                <h1 class="hero-title-welcome">
-                    @welcomeMessage
-                </h1>
-                <p class="hero-subtitle-welcome">
-                    Gérez vos congés, télétravail et documents RH en toute simplicité
-                </p>
-                <div class="hero-quick-access">
-                    <a asp-controller="Leave" asp-action="Index" class="btn btn-hero-quick">
-                        <i class="fas fa-calendar-alt"></i> Mes congés
-                    </a>
-                    <a asp-controller="Telework" asp-action="Index" class="btn btn-hero-quick">
-                        <i class="fas fa-home"></i> Télétravail
-                    </a>
-                    <a asp-controller="Document" asp-action="Index" class="btn btn-hero-quick">
-                        <i class="fas fa-file-alt"></i> Documents RH
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Résumé rapide pour utilisateurs connectés -->
-    <section class="summary-section">
-        <div class="container">
-            <div class="row g-4 justify-content-center">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="summary-card">
-                        <div class="summary-icon summary-icon-primary">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <h6 class="summary-title">Mes demandes</h6>
-                        <p class="summary-text">Consultez l'état de vos demandes de congés</p>
-                        <a asp-controller="Leave" asp-action="Index" class="btn btn-sm btn-outline-primary mt-auto">Voir</a>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="summary-card">
-                        <div class="summary-icon summary-icon-success">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <h6 class="summary-title">Télétravail</h6>
-                        <p class="summary-text">Gérez vos demandes de télétravail</p>
-                        <a asp-controller="Telework" asp-action="Index" class="btn btn-sm btn-outline-success mt-auto">Voir</a>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="summary-card">
-                        <div class="summary-icon summary-icon-info">
-                            <i class="fas fa-file-download"></i>
-                        </div>
-                        <h6 class="summary-title">Documents</h6>
-                        <p class="summary-text">Téléchargez vos documents RH</p>
-                        <a asp-controller="Document" asp-action="Index" class="btn btn-sm btn-outline-info mt-auto">Voir</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-}
-
-<!-- Features Section -->
-<section class="features-section">
+<!-- Hero Section -->
+<section class="hero-section-modern">
     <div class="container">
-        <div class="section-header">
-            <h2 class="section-title-features">Fonctionnalités principales</h2>
-            <p class="section-description-features">Tous les outils dont vous avez besoin pour gérer vos ressources humaines</p>
-        </div>
-
-        <div class="features-row">
-            <!-- Gestion des congés -->
-            <div class="feature-card-horizontal">
-                <div class="feature-icon feature-icon-primary">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <h5 class="feature-title">Gestion des congés</h5>
-                <p class="feature-text">Soumettez et suivez vos demandes de congé en toute simplicité.</p>
+        <div class="hero-wrapper">
+            <div class="hero-text p-0">
+                @if (isAuthenticated)
+                {
+                    <h1 class="hero-title">
+                        Bonjour, <br/>
+                        <span style="color: #64b5f6;">@firstName</span> 👋
+                    </h1>
+                    <p class="hero-subtitle">
+                        Bienvenue sur votre espace RH collaboratif. 
+                        Gérez vos congés, télétravail et documents en quelques clics.
+                    </p>
+                    <div class="d-flex gap-3 hero-buttons-container">
+                        <a asp-controller="Leave" asp-action="Index" class="btn btn-hero btn-hero-primary mr-3">
+                            <i class="fas fa-calendar-check mr-2"></i> Mes congés
+                        </a>
+                        <a asp-controller="Telework" asp-action="Index" class="btn btn-hero btn-hero-outline">
+                            <i class="fas fa-laptop mr-2"></i> Télétravail
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <h1 class="hero-title">
+                        Simplifiez votre <br/>
+                        <span style="color: #64b5f6;">Gestion RH</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Une plateforme moderne pour centraliser vos processus RH.
+                        Collaboration, transparence et efficacité pour toute l'entreprise.
+                    </p>
+                    <div class="d-flex gap-3 hero-buttons-container">
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-hero btn-hero-primary mr-3">
+                            <i class="fas fa-sign-in-alt mr-2"></i> Se connecter
+                        </a>
+                        <a href="#features" class="btn btn-hero btn-hero-outline">
+                            En savoir plus
+                        </a>
+                    </div>
+                }
             </div>
-
-            <!-- Télétravail -->
-            <div class="feature-card-horizontal">
-                <div class="feature-icon feature-icon-success">
-                    <i class="fas fa-home"></i>
-                </div>
-                <h5 class="feature-title">Télétravail</h5>
-                <p class="feature-text">Demandez vos journées de télétravail et consultez leur statut.</p>
-            </div>
-
-            <!-- Documents RH -->
-            <div class="feature-card-horizontal">
-                <div class="feature-icon feature-icon-info">
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <h5 class="feature-title">Documents RH</h5>
-                <p class="feature-text">Accédez rapidement à tous vos documents RH.</p>
-            </div>
-
-            <!-- Suivi du solde -->
-            <div class="feature-card-horizontal">
-                <div class="feature-icon feature-icon-warning">
-                    <i class="fas fa-chart-pie"></i>
-                </div>
-                <h5 class="feature-title">Suivi du solde</h5>
-                <p class="feature-text">Consultez votre solde de congés en temps réel.</p>
+            
+            <div class="hero-visual">
+                <img src="~/img/collabrh-logo.svg" alt="CollabRH Logo" class="img-fluid hero-logo-animation" />
             </div>
         </div>
     </div>
 </section>
 
-<!-- Additional Info Section -->
-<section class="info-section">
+<!-- Features Section -->
+<section id="features" class="section-padding">
     <div class="container">
         <div class="section-header">
-            <h3 class="section-title-info">Pourquoi choisir CollabRH ?</h3>
+            <h2 class="section-title">Tout ce dont vous avez besoin</h2>
+            <p class="section-subtitle">Une suite complète d'outils pour faciliter votre quotidien professionnel.</p>
         </div>
-        <div class="info-row">
-            <div class="info-item-horizontal">
-                <div class="info-icon">
-                    <i class="fas fa-bolt"></i>
+
+        <div class="row">
+            <!-- Gestion des congés -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="feature-card-modern">
+                    <div class="feature-icon-wrapper bg-soft-primary">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title-modern">Gestion des congés</h3>
+                    <p class="feature-text-modern">
+                        Posez vos congés en quelques secondes et suivez l'état de validation en temps réel.
+                    </p>
                 </div>
-                <h5 class="info-title">Rapide et intuitif</h5>
-                <p class="info-text">Interface moderne et ergonomique pour une expérience fluide.</p>
             </div>
-            <div class="info-item-horizontal">
-                <div class="info-icon">
-                    <i class="fas fa-shield-alt"></i>
+
+            <!-- Télétravail -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="feature-card-modern">
+                    <div class="feature-icon-wrapper bg-soft-success">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3 class="feature-title-modern">Télétravail</h3>
+                    <p class="feature-text-modern">
+                        Déclarez vos jours de télétravail et gardez une visibilité sur la présence de l'équipe.
+                    </p>
                 </div>
-                <h5 class="info-title">Sécurisé</h5>
-                <p class="info-text">Vos données sont protégées avec les meilleurs standards de sécurité.</p>
             </div>
-            <div class="info-item-horizontal">
-                <div class="info-icon">
-                    <i class="fas fa-mobile-alt"></i>
+
+            <!-- Documents -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="feature-card-modern">
+                    <div class="feature-icon-wrapper bg-soft-info">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3 class="feature-title-modern">Documents RH</h3>
+                    <p class="feature-text-modern">
+                        Accédez à vos bulletins de paie et documents administratifs en toute sécurité.
+                    </p>
                 </div>
-                <h5 class="info-title">Responsive</h5>
-                <p class="info-text">Accessible depuis n'importe quel appareil, à tout moment.</p>
+            </div>
+
+            <!-- Suivi (Manager/RH) -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="feature-card-modern">
+                    <div class="feature-icon-wrapper bg-soft-warning">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title-modern">Suivi & Validation</h3>
+                    <p class="feature-text-modern">
+                        Pour les managers, un tableau de bord intuitif pour valider les demandes de l'équipe.
+                    </p>
+                </div>
             </div>
         </div>
     </div>

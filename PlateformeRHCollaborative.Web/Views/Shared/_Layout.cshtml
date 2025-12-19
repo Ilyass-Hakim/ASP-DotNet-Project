@@ -13,7 +13,7 @@
 
     <!-- Azia CSS -->
     <link rel="stylesheet" href="~/css/azia.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
     <!-- Font Awesome -->
     <link href="~/lib/fontawesome-free/css/all.min.css" rel="stylesheet" />
@@ -30,7 +30,9 @@
     <div class="az-header">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="az-header-left">
-                <a asp-controller="Home" asp-action="Index" class="az-logo">Collab<span>RH</span></a>
+                <a asp-controller="Home" asp-action="Index" class="az-logo">
+                    <img src="~/img/collabrh-logo.svg" alt="CollabRH Logo" style="height: 160px; width: auto;" />
+                </a>
             </div>
 
             <div class="az-header-menu">

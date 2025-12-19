@@ -1,0 +1,37 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E40AF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0C4A6E;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Three connected people icons representing collaboration -->
+  <g transform="translate(200, 160)">
+    <!-- Left person -->
+    <circle cx="-50" cy="0" r="18" fill="url(#gradient1)"/>
+    <path d="M -50 22 Q -50 30 -42 35 Q -35 40 -50 40 Q -65 40 -58 35 Q -50 30 -50 22" fill="url(#gradient1)"/>
+    
+    <!-- Center person (slightly larger) -->
+    <circle cx="0" cy="-10" r="22" fill="url(#gradient1)"/>
+    <path d="M 0 16 Q 0 26 10 32 Q 18 38 0 38 Q -18 38 -10 32 Q 0 26 0 16" fill="url(#gradient1)"/>
+    
+    <!-- Right person -->
+    <circle cx="50" cy="0" r="18" fill="url(#gradient1)"/>
+    <path d="M 50 22 Q 50 30 58 35 Q 65 40 50 40 Q 35 40 42 35 Q 50 30 50 22" fill="url(#gradient1)"/>
+    
+    <!-- Connection lines -->
+    <line x1="-32" y1="8" x2="-22" y2="12" stroke="url(#gradient1)" stroke-width="3" opacity="0.6"/>
+    <line x1="32" y1="8" x2="22" y2="12" stroke="url(#gradient1)" stroke-width="3" opacity="0.6"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#1F2937" text-anchor="middle">
+    collab<tspan fill="url(#gradient1)">RH</tspan>
+  </text>
+  
+  <!-- Tagline -->
+  <text x="200" y="295" font-family="Arial, sans-serif" font-size="14" fill="#6B7280" text-anchor="middle" letter-spacing="2">
+    HUMAN RESOURCES
+  </text>
+</svg>
