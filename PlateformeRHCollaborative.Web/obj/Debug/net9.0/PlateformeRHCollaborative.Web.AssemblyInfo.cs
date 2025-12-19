@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PlateformeRHCollaborative.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c52992dcbee8e2cd2833646b7a448a79e4aa7c6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fcae86b659a64fe2e4c581a57f6a5f5bebc7fcf0")]
 [assembly: System.Reflection.AssemblyProductAttribute("PlateformeRHCollaborative.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PlateformeRHCollaborative.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

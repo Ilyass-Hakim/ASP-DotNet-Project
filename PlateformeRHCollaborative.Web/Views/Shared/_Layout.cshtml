@@ -54,6 +54,9 @@
                         @if (User.IsInRole("Manager"))
                         {
                             <li class="nav-item">
+                                <a asp-controller="Manager" asp-action="Index" class="nav-link">Performances</a>
+                            </li>
+                            <li class="nav-item">
                                 <a asp-controller="Requests" asp-action="Index" class="nav-link">Demandes</a>
                             </li>
                         }

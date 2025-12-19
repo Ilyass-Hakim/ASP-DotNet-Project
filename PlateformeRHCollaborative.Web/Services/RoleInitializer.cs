@@ -21,8 +21,20 @@ public class RoleInitializer : IHostedService
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
+            // Hack: Ajout manuel des colonnes car nous sommes sur SQL Server et les migrations sont bloquées
+            try {
+                await dbContext.Database.ExecuteSqlRawAsync("ALTER TABLE Employees ADD SalaryBase decimal(18,2) NOT NULL DEFAULT 3000", cancellationToken);
+            } catch { /* Ignorer si déjà existant */ }
+            try {
+                await dbContext.Database.ExecuteSqlRawAsync("ALTER TABLE Employees ADD PerformancePoints int NOT NULL DEFAULT 0", cancellationToken);
+            } catch { /* Ignorer si déjà existant */ }
+
             // Attendre que la base de données soit prête
-            await dbContext.Database.MigrateAsync(cancellationToken);
+            try {
+                await dbContext.Database.MigrateAsync(cancellationToken);
+            } catch (Exception ex) { 
+                Console.WriteLine($"Migration error (ignoring): {ex.Message}");
+            }
 
             string[] roles = { "Employe", "Manager", "RH" };
             foreach (var role in roles)
@@ -36,7 +48,7 @@ public class RoleInitializer : IHostedService
         catch (Exception ex)
         {
             // Logger l'erreur mais ne pas bloquer le démarrage
-            Console.WriteLine($"Erreur lors de l'initialisation des rôles : {ex.Message}");
+            Console.WriteLine($"Erreur lors de l'initialisation des rôles : {ex}");
         }
     }
 

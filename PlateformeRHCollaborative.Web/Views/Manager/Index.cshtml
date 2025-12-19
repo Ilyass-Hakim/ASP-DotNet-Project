@@ -1,0 +1,78 @@
+@model IEnumerable<PlateformeRHCollaborative.Web.Models.Employee>
+
+@{
+    ViewData["Title"] = "Gestion des Performances";
+}
+
+<div class="container mt-4">
+    <div class="section-header text-center mb-5">
+        <h2 class="section-title">
+            <i class="fas fa-users-cog"></i> Gestion des Employés & Performances
+        </h2>
+        <p class="section-description">
+            Interface manager pour la gestion des salaires et l'attribution des points de performance.
+        </p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card border-0 shadow-lg" style="border-radius: 15px;">
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Employé</th>
+                                    <th>Poste</th>
+                                    <th>Salaire de Base</th>
+                                    <th>Points Performance</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var emp in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">@emp.Nom</div>
+                                            <small class="text-muted">@emp.Email</small>
+                                        </td>
+                                        <td>@emp.Poste</td>
+                                        <td>
+                                            <form asp-action="UpdateSalary" method="post" class="d-flex gap-2">
+                                                <input type="hidden" name="employeeId" value="@emp.Id" />
+                                                <div class="input-group input-group-sm" style="width: 150px;">
+                                                    <input type="number" name="salary" value="@emp.SalaryBase" class="form-control" step="0.01" />
+                                                    <span class="input-group-text">€</span>
+                                                </div>
+                                                <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-save"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-soft-info text-info p-2 rounded-pill" style="font-size: 0.9rem;">
+                                                <i class="fas fa-star me-1"></i> @emp.PerformancePoints pts
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <form asp-action="AddPoints" method="post" class="d-inline-flex gap-2">
+                                                <input type="hidden" name="employeeId" value="@emp.Id" />
+                                                <button type="submit" name="points" value="10" class="btn btn-sm btn-success rounded-pill px-3">
+                                                    +10 pts
+                                                </button>
+                                                <button type="submit" name="points" value="50" class="btn btn-sm btn-warning rounded-pill px-3">
+                                                    +50 pts
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

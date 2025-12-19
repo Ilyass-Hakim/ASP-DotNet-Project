@@ -13,32 +13,32 @@
         </p>
     </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <div class="alert alert-info" role="alert">
-                        <i class="fas fa-info-circle me-2"></i>
-                        Cette section sera prochainement disponible avec la gestion complète des documents RH.
+            <div class="row justify-content-center">
+                <!-- Attestations -->
+                <div class="col-md-5 mb-4">
+                    <div class="feature-card-modern h-100 p-4">
+                        <div class="feature-icon-wrapper bg-soft-primary mb-4">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Attestations de travail</h4>
+                        <p class="text-muted mb-4">Générez instantanément votre attestation de travail officielle au format PDF.</p>
+                        <a asp-action="GenerateCertificate" class="btn btn-primary rounded-pill px-4 w-100 mt-auto">
+                            <i class="fas fa-download me-2"></i> Générer l'attestation
+                        </a>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <div class="card border-primary">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
-                                    <h5 class="card-title">Attestations de travail</h5>
-                                    <p class="card-text text-muted">Bientôt disponible</p>
-                                </div>
-                            </div>
+                <!-- Fiches de paie -->
+                <div class="col-md-5 mb-4">
+                    <div class="feature-card-modern h-100 p-4">
+                        <div class="feature-icon-wrapper bg-soft-success mb-4">
+                            <i class="fas fa-file-invoice-dollar"></i>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="card border-success">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-file-invoice fa-3x text-success mb-3"></i>
-                                    <h5 class="card-title">Fiches de paie</h5>
-                                    <p class="card-text text-muted">Bientôt disponible</p>
-                                </div>
-                            </div>
-                        </div>
+                        <h4 class="fw-bold mb-3">Fiches de paie</h4>
+                        <p class="text-muted mb-4">Consultez et téléchargez vos fiches de paie pour le mois en cours.</p>
+                        <a asp-action="GeneratePaySlip" class="btn btn-success rounded-pill px-4 w-100 mt-auto">
+                            <i class="fas fa-download me-2"></i> Télécharger la fiche de paie
+                        </a>
                     </div>
                 </div>
             </div>

@@ -9,6 +9,8 @@ public class Employee
     public string Email { get; set; } = string.Empty;
     public int SoldeConges { get; set; }
     public string Role { get; set; } = string.Empty;
+    public decimal SalaryBase { get; set; } = 3000m;
+    public int PerformancePoints { get; set; } = 0;
 }
 
 
