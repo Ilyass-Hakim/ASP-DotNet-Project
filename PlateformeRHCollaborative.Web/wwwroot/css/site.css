@@ -61,6 +61,9 @@ body {
   transition: opacity 0.3s ease;
   position: relative;
   height: 100%;
+  width: 200px;
+  /* Give it a width so absolute img doesn't collapse parent */
+  justify-content: center;
 }
 
 .az-logo:hover {
@@ -70,10 +73,11 @@ body {
 .az-logo img {
   display: block;
   position: absolute;
-  /* Allow logo to extend outside header bounds if needed */
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   max-width: none;
+  z-index: 10;
 }
 
 
@@ -330,15 +334,33 @@ h6 {
 }
 
 .section-header {
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .section-title {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 700;
-  color: #0056b3;
-  margin-bottom: 1rem;
-  line-height: 1.3;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 800;
+  color: #2c3e50;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.section-title i {
+  color: #007bff;
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 .section-description {
@@ -347,6 +369,7 @@ h6 {
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+  text-align: center;
 }
 
 .features-grid {
@@ -947,10 +970,7 @@ h6 {
    Features Section - Alignement horizontal
    ============================================================================= */
 
-.section-header {
-  margin-bottom: 3rem;
-  text-align: center;
-}
+
 
 .section-title-features,
 .section-title-info {
@@ -1730,6 +1750,22 @@ h6 {
   padding: 5rem 0;
 }
 
+.container:has(.section-header) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container:has(.section-header)>.row {
+  width: 100%;
+}
+
+#features .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .feature-card-modern {
   background: white;
   border-radius: 20px;
@@ -1737,7 +1773,10 @@ h6 {
   height: 100%;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  text-align: left;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.02);
