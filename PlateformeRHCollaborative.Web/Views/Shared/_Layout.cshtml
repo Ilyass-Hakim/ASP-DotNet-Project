@@ -51,11 +51,11 @@
                         <li class="nav-item">
                             <a asp-controller="Document" asp-action="Index" class="nav-link">Documents RH</a>
                         </li>
+                        <li class="nav-item">
+                            <a asp-controller="Performance" asp-action="Index" class="nav-link">Performances & Primes</a>
+                        </li>
                         @if (User.IsInRole("Manager"))
                         {
-                            <li class="nav-item">
-                                <a asp-controller="Manager" asp-action="Index" class="nav-link">Performances</a>
-                            </li>
                             <li class="nav-item">
                                 <a asp-controller="Requests" asp-action="Index" class="nav-link">Demandes</a>
                             </li>
@@ -64,6 +64,9 @@
                         {
                             <li class="nav-item">
                                 <a asp-controller="Dashboard" asp-action="Index" class="nav-link">Tableau de bord RH</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Performance" asp-action="ManageCriteria" class="nav-link">Configuration Critères</a>
                             </li>
                             <li class="nav-item">
                                 <a asp-controller="Account" asp-action="Register" class="nav-link">Créer un compte</a>

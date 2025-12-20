@@ -16,4 +16,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Telework> Teleworks => Set<Telework>();
     public DbSet<DocumentRequest> DocumentRequests => Set<DocumentRequest>();
     public DbSet<Notification> Notifications => Set<Notification>();
+    public DbSet<EvaluationCriteria> EvaluationCriteria => Set<EvaluationCriteria>();
+    public DbSet<PerformanceEvaluation> PerformanceEvaluations => Set<PerformanceEvaluation>();
+    public DbSet<EvaluationDetail> EvaluationDetails => Set<EvaluationDetail>();
 }

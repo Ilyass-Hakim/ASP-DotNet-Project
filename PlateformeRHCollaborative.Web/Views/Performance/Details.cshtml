@@ -1,0 +1,134 @@
+@model PlateformeRHCollaborative.Web.Models.PerformanceEvaluation
+
+@{
+    ViewData["Title"] = "Détails de l'Évaluation";
+}
+
+<div class="container mt-4">
+    <div class="az-content-breadcrumb">
+        <span>Performances</span>
+        <span>Détails</span>
+        <span>@Model.Employee?.Nom</span>
+    </div>
+    
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
+        <h2 class="az-content-title">Détails de l'Évaluation</h2>
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <div class="row mb-4">
+                        <div class="col-sm-6">
+                            <h6 class="text-muted text-uppercase small font-weight-bold">Employé</h6>
+                            <h4 class="text-primary">@Model.Employee?.Nom</h4>
+                            <p class="text-muted">@Model.Employee?.Poste</p>
+                        </div>
+                        <div class="col-sm-6 text-sm-right">
+                            <h6 class="text-muted text-uppercase small font-weight-bold">Date d'évaluation</h6>
+                            <h4 class="text-dark">@Model.EvaluationDate.ToString("dd MMMM yyyy")</h4>
+                            <span class="badge @(Model.Status == PlateformeRHCollaborative.Web.Models.EvaluationStatus.Validated ? "bg-success" : "bg-info")">
+                                @Model.Status
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="text-center my-5">
+                        <h6 class="text-muted text-uppercase small font-weight-bold mb-3">Score Global</h6>
+                        <div class="display-1 text-primary font-weight-bold">@Model.FinalScore.ToString("F1")%</div>
+                        <div class="progress mt-4 mx-auto" style="height: 15px; max-width: 400px; border-radius: 10px;">
+                            <div class="progress-bar @(Model.FinalScore >= 85 ? "bg-success" : (Model.FinalScore >= 60 ? "bg-info" : "bg-warning"))" 
+                                 role="progressbar" style="width: @Model.FinalScore%" 
+                                 aria-valuenow="@Model.FinalScore" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h5 class="mt-4 mb-3">Détail par critère</h5>
+                    <div class="list-group list-group-flush">
+                        @foreach (var detail in Model.Details)
+                        {
+                            <div class="list-group-item px-0 py-3 border-0 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <h6 class="mb-0">@detail.Criteria?.Name</h6>
+                                        <small class="text-muted">Poids : @detail.Criteria?.Weight%</small>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="h5 mb-0 text-primary">@detail.Score</span>
+                                        <span class="text-muted">/ 10</span>
+                                    </div>
+                                </div>
+                                <div class="progress" style="height: 6px; border-radius: 3px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: @(detail.Score * 10)%"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm mb-4 bg-light">
+                <div class="card-body p-4">
+                    <h5 class="card-title text-uppercase small font-weight-bold text-muted mb-4">Informations Prime</h5>
+                    
+                    <div class="mb-4">
+                        <label class="text-muted small d-block">Montant de la prime</label>
+                        <h3 class="text-dark">@Model.CalculatedBonus.ToString("C")</h3>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="text-muted small d-block">Statut de validation</label>
+                        @if (Model.BonusStatus == PlateformeRHCollaborative.Web.Models.BonusStatus.Pending)
+                        {
+                            <span class="badge badge-pill bg-warning text-dark px-3 py-2">
+                                <i class="fas fa-clock mr-1"></i> En attente de validation RH
+                            </span>
+                        }
+                        else if (Model.BonusStatus == PlateformeRHCollaborative.Web.Models.BonusStatus.Approved)
+                        {
+                            <span class="badge badge-pill bg-success px-3 py-2">
+                                <i class="fas fa-check-circle mr-1"></i> Validé par les RH
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-pill bg-danger px-3 py-2">
+                                <i class="fas fa-times-circle mr-1"></i> Rejeté par les RH
+                            </span>
+                        }
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.RHComments))
+                    {
+                        <div class="mt-4 p-3 bg-white rounded border-left border-primary">
+                            <label class="text-muted small d-block font-weight-bold">Commentaires RH</label>
+                            <p class="mb-0 italic">"@Model.RHComments"</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm bg-primary text-white">
+                <div class="card-body p-4">
+                    <h5>Informations Contrat</h5>
+                    <div class="mt-3">
+                        <small class="d-block opacity-75">Salaire de Base</small>
+                        <p class="h5">@Model.Employee?.SalaryBase.ToString("C")</p>
+                    </div>
+                    <div class="mt-3">
+                        <small class="d-block opacity-75">Poste</small>
+                        <p class="h5">@Model.Employee?.Poste</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

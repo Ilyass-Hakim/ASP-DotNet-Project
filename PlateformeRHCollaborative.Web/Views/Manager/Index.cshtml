@@ -56,15 +56,17 @@
                                             </span>
                                         </td>
                                         <td class="text-center">
-                                            <form asp-action="AddPoints" method="post" class="d-inline-flex gap-2">
-                                                <input type="hidden" name="employeeId" value="@emp.Id" />
-                                                <button type="submit" name="points" value="10" class="btn btn-sm btn-success rounded-pill px-3">
-                                                    +10 pts
-                                                </button>
-                                                <button type="submit" name="points" value="50" class="btn btn-sm btn-warning rounded-pill px-3">
-                                                    +50 pts
-                                                </button>
-                                            </form>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a asp-controller="Performance" asp-action="Create" asp-route-employeeId="@emp.Id" class="btn btn-sm btn-primary rounded-pill px-3">
+                                                    <i class="fas fa-clipboard-check"></i> Évaluer
+                                                </a>
+                                                <form asp-action="AddPoints" method="post" class="d-inline-flex gap-2">
+                                                    <input type="hidden" name="employeeId" value="@emp.Id" />
+                                                    <button type="submit" name="points" value="10" class="btn btn-sm btn-success rounded-pill px-3">
+                                                        +10 pts
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 }

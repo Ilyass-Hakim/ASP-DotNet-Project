@@ -24,6 +24,7 @@ builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
 builder.Services.AddScoped<LeaveService>();
 builder.Services.AddScoped<TeleworkService>();
 builder.Services.AddScoped<DocumentService>();
+builder.Services.AddScoped<IPerformanceService, PerformanceService>();
 builder.Services.AddHostedService<RoleInitializer>();
 
 var app = builder.Build();

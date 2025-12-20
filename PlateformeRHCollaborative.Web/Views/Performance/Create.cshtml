@@ -1,0 +1,108 @@
+@model PlateformeRHCollaborative.Web.Models.PerformanceEvaluation
+
+@{
+    ViewData["Title"] = "Nouvelle Évaluation";
+}
+
+<div class="container mt-4">
+    <div class="az-content-breadcrumb">
+        <span>Performances</span>
+        <span>Évaluation</span>
+        <span>@Model.Employee?.Nom</span>
+    </div>
+    <h2 class="az-content-title mt-2">Évaluation de @Model.Employee?.Nom</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Formulaire d'évaluation</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <input type="hidden" asp-for="EmployeeId" />
+                        <input type="hidden" asp-for="Period" value="@DateTime.Now.Year" />
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="text-muted small fw-bold">Employé</label>
+                                <p class="h5">@Model.Employee?.Nom</p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <label class="text-muted small fw-bold">Date</label>
+                                <p class="h5">@DateTime.Now.ToShortDateString()</p>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <p class="text-muted mb-4">Notez chaque critère sur une échelle de 1 à 10.</p>
+
+                        @foreach (var detail in Model.Details)
+                        {
+                            <div class="mb-4 criteria-item">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="fw-bold mb-0">@detail.Criteria?.Name</label>
+                                    <span class="badge bg-secondary">Poids: @detail.Criteria?.Weight%</span>
+                                </div>
+                                @if (!string.IsNullOrEmpty(detail.Criteria?.Description))
+                                {
+                                    <p class="small text-muted">@detail.Criteria.Description</p>
+                                }
+                                <div class="d-flex align-items-center gap-3">
+                                    <input type="hidden" name="criteriaIds" value="@detail.Criteria?.Id" />
+                                    <input type="range" name="scores" class="form-range flex-grow-1" min="1" max="10" step="1" 
+                                           value="5" oninput="this.nextElementSibling.innerText = this.value">
+                                    <span class="h4 mb-0 text-primary" style="min-width: 30px;">5</span>
+                                    <span class="text-muted">/ 10</span>
+                                </div>
+                            </div>
+                        }
+
+                        <hr />
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <a asp-action="Index" class="btn btn-light">Annuler</a>
+                            <button type="submit" class="btn btn-primary px-5">Soumettre l'évaluation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card border-0 bg-primary text-white shadow-sm">
+                <div class="card-body">
+                    <h5>Rappel des règles</h5>
+                    <ul class="small mt-3">
+                        <li>Le score final est une moyenne pondérée.</li>
+                        <li>Les primes sont automatiques basées sur le score :
+                            <ul class="mt-2">
+                                <li>Score >= 85% : 15% du salaire</li>
+                                <li>Score >= 70% : 10% du salaire</li>
+                                <li>Score >= 60% : 5% du salaire</li>
+                            </ul>
+                        </li>
+                        <li>Toute évaluation est soumise à la validation des RH.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .criteria-item {
+        background: #f8f9fc;
+        padding: 20px;
+        border-radius: 10px;
+        transition: all 0.2s;
+    }
+    .criteria-item:hover {
+        background: #f1f3f9;
+        transform: translateY(-2px);
+    }
+    .form-range::-webkit-slider-thumb {
+        background: #5b47fb;
+    }
+</style>
