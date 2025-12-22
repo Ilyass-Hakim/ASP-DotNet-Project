@@ -52,7 +52,11 @@
                                     @foreach (var leave in (List<PlateformeRHCollaborative.Web.Models.Leave>)ViewBag.PendingLeaves)
                                     {
                                         <tr>
+<<<<<<< HEAD
                                             <td>@(leave.Employee?.Nom ?? leave.Employee?.Email ?? "N/A")</td>
+=======
+                                            <td>@(leave.Employee?.Email ?? "N/A")</td>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                             <td>@leave.StartDate.ToString("dd/MM/yyyy")</td>
                                             <td>@leave.EndDate.ToString("dd/MM/yyyy")</td>
                                             <td>@leave.Reason</td>
@@ -65,13 +69,26 @@
                                                             <i class="fas fa-check"></i> Accepter
                                                         </button>
                                                     </form>
+<<<<<<< HEAD
+                                                    <form method="post" asp-controller="Requests" asp-action="RejectLeave" class="d-inline">
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="hidden" name="id" value="@leave.Id" />
+                                                        <input type="hidden" name="rejectionReason" value="Refus par défaut (Debug)" />
+                                                        <button type="submit" class="btn btn-sm btn-danger">
+                                                            <i class="fas fa-times"></i> Refuser
+                                                        </button>
+                                                    </form>
+=======
                                                     <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#rejectLeaveModal@(leave.Id)">
                                                         <i class="fas fa-times"></i> Refuser
                                                     </button>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                                 </div>
                                             </td>
                                         </tr>
 
+<<<<<<< HEAD
+=======
                                         <!-- Modal pour refus de congé -->
                                         <div class="modal fade" id="rejectLeaveModal@(leave.Id)" tabindex="-1">
                                             <div class="modal-dialog">
@@ -104,10 +121,16 @@
                                                 </div>
                                             </div>
                                         </div>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                     }
                                 </tbody>
                             </table>
                         </div>
+<<<<<<< HEAD
+                        
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     }
                     else
                     {
@@ -142,7 +165,11 @@
                                     @foreach (var telework in (List<PlateformeRHCollaborative.Web.Models.Telework>)ViewBag.PendingTeleworks)
                                     {
                                         <tr>
+<<<<<<< HEAD
                                             <td>@(telework.Employee?.Nom ?? telework.Employee?.Email ?? "N/A")</td>
+=======
+                                            <td>@(telework.Employee?.Email ?? "N/A")</td>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                             <td>@telework.StartDate.ToString("dd/MM/yyyy")</td>
                                             <td>@telework.EndDate.ToString("dd/MM/yyyy")</td>
                                             <td>@(telework.Motif ?? "N/A")</td>
@@ -155,13 +182,26 @@
                                                             <i class="fas fa-check"></i> Accepter
                                                         </button>
                                                     </form>
+<<<<<<< HEAD
+                                                    <form method="post" asp-controller="Requests" asp-action="RejectTelework" class="d-inline">
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="hidden" name="id" value="@telework.Id" />
+                                                        <input type="hidden" name="rejectionReason" value="Refus par défaut (Debug)" />
+                                                        <button type="submit" class="btn btn-sm btn-danger">
+                                                            <i class="fas fa-times"></i> Refuser
+                                                        </button>
+                                                    </form>
+=======
                                                     <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#rejectTeleworkModal@(telework.Id)">
                                                         <i class="fas fa-times"></i> Refuser
                                                     </button>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                                 </div>
                                             </td>
                                         </tr>
 
+<<<<<<< HEAD
+=======
                                         <!-- Modal pour refus de télétravail -->
                                         <div class="modal fade" id="rejectTeleworkModal@(telework.Id)" tabindex="-1">
                                             <div class="modal-dialog">
@@ -194,10 +234,16 @@
                                                 </div>
                                             </div>
                                         </div>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                     }
                                 </tbody>
                             </table>
                         </div>
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     }
                     else
                     {

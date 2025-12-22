@@ -5,6 +5,7 @@
 }
 
 <div class="container mt-4">
+<<<<<<< HEAD
     <div class="section-header text-center mb-5">
         <h2 class="section-title">
             <i class="fas fa-plus-circle"></i> Nouvelle demande de congé
@@ -15,6 +16,17 @@
         <div class="col-md-6">
             <div class="card border-0 shadow-lg" style="border-radius: 15px;">
                 <div class="card-body p-5">
+=======
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-lg" style="border-radius: 15px;">
+                <div class="card-header bg-primary text-white" style="border-radius: 15px 15px 0 0;">
+                    <h3 class="mb-0">
+                        <i class="fas fa-plus-circle"></i> Nouvelle demande de congé
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     <form asp-action="Create" method="post">
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
@@ -36,6 +48,7 @@
                             <span asp-validation-for="Reason" class="text-danger"></span>
                         </div>
 
+<<<<<<< HEAD
                         <div class="d-flex flex-column mt-4">
                             <button type="submit" class="btn btn-primary btn-lg rounded-pill">
                                 <i class="fas fa-paper-plane"></i> Soumettre la demande
@@ -43,6 +56,15 @@
                             <a asp-action="Index" class="btn btn-outline-secondary btn-lg rounded-pill" style="margin-top: 10px;">
                                 <i class="fas fa-times"></i> Annuler
                             </a>
+=======
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">
+                                <i class="fas fa-times"></i> Annuler
+                            </a>
+                            <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill">
+                                <i class="fas fa-paper-plane"></i> Soumettre
+                            </button>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                         </div>
                     </form>
                 </div>

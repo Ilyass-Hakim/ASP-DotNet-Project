@@ -85,10 +85,38 @@
                             <option value="Employe">Employé</option>
                             <option value="Manager">Manager</option>
                             <option value="RH">RH</option>
+<<<<<<< HEAD
+                            <option value="Directeur">Directeur</option>
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                         </select>
                         <small class="login-form-hint">Sélectionnez le rôle du nouvel utilisateur</small>
                     </div>
 
+<<<<<<< HEAD
+                    <div class="login-form-group">
+                        <label for="department" class="login-form-label">
+                            <i class="fas fa-building"></i> Département
+                        </label>
+                        <select 
+                            id="department" 
+                            name="department" 
+                            class="login-form-input login-form-select" 
+                            required>
+                            <option value="">Sélectionnez un département</option>
+                            @if (ViewBag.Departments != null)
+                            {
+                                foreach (var dept in ViewBag.Departments)
+                                {
+                                    <option value="@dept">@dept</option>
+                                }
+                            }
+                        </select>
+                        <small class="login-form-hint">Assignation automatique du manager selon le département</small>
+                    </div>
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     <button type="submit" class="login-form-submit-btn">
                         <i class="fas fa-user-plus me-2"></i>Créer mon compte
                     </button>

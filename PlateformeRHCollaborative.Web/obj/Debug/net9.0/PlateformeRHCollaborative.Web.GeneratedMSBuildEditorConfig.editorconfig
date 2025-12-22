@@ -17,137 +17,117 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PlateformeRHCollaborative.Web
 build_property.RootNamespace = PlateformeRHCollaborative.Web
-build_property.ProjectDir = C:\Users\ASUS ROG G16\Desktop\dotnet_project\PlateformeRHCollaborative.Web\
+build_property.ProjectDir = D:\YASMINE\.net\PROJET\PlateformeRHCollaborative.Web\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\ASUS ROG G16\Desktop\dotnet_project\PlateformeRHCollaborative.Web
+build_property.MSBuildProjectDirectory = D:\YASMINE\.net\PROJET\PlateformeRHCollaborative.Web
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Areas/Identity/Pages/_ViewStart.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Account/Login.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Account/Register.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Dashboard/Index.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Dashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Document/Index.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Document/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Home/Index.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Home/Privacy.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Leave/Create.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Leave/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Leave/History.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Leave/History.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcSGlzdG9yeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Leave/Index.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Leave/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Leave/List.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Leave/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Leave/New.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Leave/New.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcTmV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Leave/Solde.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Leave/Solde.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcU29sZGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Manager/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Performance/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZm9ybWFuY2VcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Performance/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZm9ybWFuY2VcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Performance/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZm9ybWFuY2VcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Performance/ManageCriteria.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZm9ybWFuY2VcTWFuYWdlQ3JpdGVyaWEuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Planning/Index.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Planning/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhbm5pbmdcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Requests/Index.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Requests/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVxdWVzdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Shared/Error.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Shared/_LoginPartial.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Telework/Create.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Telework/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsZXdvcmtcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Telework/History.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Telework/History.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsZXdvcmtcSGlzdG9yeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Telework/Index.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Telework/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsZXdvcmtcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Telework/List.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Telework/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsZXdvcmtcTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Telework/New.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Telework/New.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsZXdvcmtcTmV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/_ViewImports.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/_ViewStart.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ASUS ROG G16/Desktop/dotnet_project/PlateformeRHCollaborative.Web/Views/Shared/_Layout.cshtml]
+[D:/YASMINE/.net/PROJET/PlateformeRHCollaborative.Web/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-e47gh2zokk

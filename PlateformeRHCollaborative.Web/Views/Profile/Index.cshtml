@@ -1,0 +1,257 @@
+@model PlateformeRHCollaborative.Web.Models.Employee
+
+@{
+    ViewData["Title"] = "Mon Profil";
+    var initials = (!string.IsNullOrEmpty(Model?.Nom) && Model.Nom.Length >= 2) ? Model.Nom.Substring(0, 2).ToUpper() : "U";
+    var totalLeaves = 25.0; // Balances standards initiaux
+    var usedLeaves = totalLeaves - (double)(Model?.SoldeConges ?? 0);
+    // Ensure accurate values for display
+    if (usedLeaves < 0) usedLeaves = 0;
+    
+    var progressPercentage = (usedLeaves / totalLeaves) * 100;
+    if (progressPercentage < 0) progressPercentage = 0;
+    if (progressPercentage > 100) progressPercentage = 100;
+}
+
+<!-- Custom Styles for Profile Page -->
+<style>
+    .profile-header-banner {
+        height: 150px;
+        background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+        border-radius: 15px 15px 0 0;
+    }
+    .profile-header-content {
+        margin-top: -50px;
+        padding-left: 30px;
+    }
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border: 4px solid white;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        background-color: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #0d6efd;
+    }
+    .profile-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        transition: transform 0.2s;
+        height: 100%;
+        background-color: white;
+    }
+    .profile-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+    .info-icon {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-size: 1.1rem;
+    }
+    .bg-icon-personal { background-color: rgba(13, 110, 253, 0.1); color: #0d6efd; }
+    .bg-icon-pro { background-color: rgba(25, 135, 84, 0.1); color: #198754; }
+    .bg-icon-contact { background-color: rgba(255, 193, 7, 0.1); color: #ffc107; }
+    
+    .label-text {
+        font-size: 0.75rem;
+        color: #6c757d;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+    }
+    .value-text {
+        font-size: 1rem;
+        color: #212529;
+        font-weight: 500;
+    }
+    .empty-value {
+        color: #adb5bd;
+        font-style: italic;
+        font-size: 0.95rem;
+    }
+</style>
+
+<div class="container mt-4 mb-5">
+    @if (Model != null)
+    {
+        <!-- Header Section -->
+        <div class="card border-0 shadow-sm mb-4" style="border-radius: 15px;">
+            <div class="profile-header-banner"></div>
+            <div class="card-body pt-0 pb-4">
+                <div class="row align-items-end profile-header-content">
+                    <div class="col-auto">
+                        <div class="profile-avatar rounded-circle">
+                            @initials
+                        </div>
+                    </div>
+                    <div class="col-md mb-2 mt-3 mt-md-0">
+                        <h2 class="fw-bold mb-0">@Model.Nom</h2>
+                        <div class="d-flex align-items-center mt-1">
+                            <i class="fas fa-briefcase text-muted me-2"></i>
+                            <span class="text-secondary fw-medium me-3">@Model.Poste</span>
+                            <span class="badge bg-primary rounded-pill">@Model.Department</span>
+                        </div>
+                    </div>
+                    <div class="col-auto ms-auto pb-2 mt-3 mt-md-0">
+                        <a href="#" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">
+                            <i class="fas fa-pen me-2"></i> Modifier mon profil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left Column: Info -->
+            <div class="col-lg-8">
+                <div class="d-flex flex-column gap-4">
+                    
+                    <!-- Personal Info -->
+                    <div class="profile-card card">
+                        <div class="card-header bg-white border-0 pt-4 px-4 pb-0">
+                            <h5 class="fw-bold mb-0"><i class="fas fa-user-circle me-2 text-primary"></i>Informations Personnelles</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="info-icon bg-icon-contact"><i class="fas fa-envelope"></i></div>
+                                        <div>
+                                            <div class="label-text">Email professionnel</div>
+                                            <div class="value-text text-break">@Model.Email</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Professional Info -->
+                    <div class="profile-card card">
+                        <div class="card-header bg-white border-0 pt-4 px-4 pb-0">
+                            <h5 class="fw-bold mb-0"><i class="fas fa-briefcase me-2 text-success"></i>Informations Professionnelles</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-start">
+                                        <div class="info-icon bg-icon-pro"><i class="fas fa-building"></i></div>
+                                        <div>
+                                            <div class="label-text">Département</div>
+                                            <div class="value-text">@Model.Department</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-start">
+                                        <div class="info-icon bg-icon-pro"><i class="fas fa-file-signature"></i></div>
+                                        <div>
+                                            <div class="label-text">Type de Contrat</div>
+                                            <div class="value-text">@(Model.ContractType ?? "CDI")</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-start">
+                                        <div class="info-icon bg-icon-pro"><i class="fas fa-user-tie"></i></div>
+                                        <div>
+                                            <div class="label-text">Manager Direct</div>
+                                            @if (Model.Manager != null)
+                                            {
+                                                <div class="d-flex align-items-center mt-1">
+                                                    <div class="bg-light border rounded-circle text-center small fw-bold me-2 text-primary" style="width: 28px; height: 28px; line-height: 26px;">
+                                                        @(Model.Manager.Nom?.Substring(0,1) ?? "M")
+                                                    </div>
+                                                    <a href="#" class="value-text text-decoration-none text-primary">@Model.Manager.Nom</a>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="value-text empty-value">Aucun manager assigné</div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-start">
+                                        <div class="info-icon bg-icon-pro"><i class="fas fa-calendar-alt"></i></div>
+                                        <div>
+                                            <div class="label-text">Date d'embauche</div>
+                                            <div class="value-text">15 Janvier 2023</div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Balance & Stats -->
+            <div class="col-lg-4">
+                <div class="d-flex flex-column gap-4">
+                    
+                    <!-- Leave Balance Card -->
+                    <div class="profile-card card bg-gradient-success text-white overflow-hidden" style="background: linear-gradient(135deg, #20c997 0%, #198754 100%);">
+                        <div class="card-body p-4 text-center position-relative">
+                            <div style="position: absolute; right: -20px; top: -20px; opacity: 0.15; transform: rotate(15deg);">
+                                <i class="fas fa-umbrella-beach fa-7x text-white"></i>
+                            </div>
+                            
+                            <h5 class="fw-normal mb-3 text-white-50 text-uppercase small ls-1">Solde de Congés</h5>
+                            <h1 class="display-3 fw-bold mb-0">@Model.SoldeConges</h1>
+                            <p class="mb-4 text-white-50">Jours disponibles</p>
+                            
+                            <div class="progress bg-white bg-opacity-25 rounded-pill mb-2" style="height: 8px;">
+                                <div class="progress-bar bg-white shadow-sm" role="progressbar" style="width: @progressPercentage%" aria-valuenow="@progressPercentage" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex justify-content-between small mb-4 text-white-50">
+                                <span>Utilisé: @usedLeaves j</span>
+                                <span>Total: @totalLeaves j</span>
+                            </div>
+
+                            <a asp-controller="Leave" asp-action="Solde" class="btn btn-light text-success w-100 fw-bold rounded-pill shadow-sm py-2">
+                                <i class="fas fa-eye me-2"></i> Voir le détail
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-5 p-5 shadow-sm" style="border-radius: 15px;">
+            <i class="fas fa-exclamation-triangle fa-3x mb-3 text-warning"></i>
+            <h4>Profil Employé Introuvable</h4>
+            <p>Impossible de charger votre profil employé. Veuillez contacter le support.</p>
+        </div>
+    }
+</div>
+
+<style>
+    .ls-1 { letter-spacing: 1px; }
+    .hover-shadow:hover { 
+        background-color: #f8f9fa !important; 
+        transform: translateX(5px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.05) !important;
+    }
+    .transition-all { transition: all 0.3s ease; }
+</style>

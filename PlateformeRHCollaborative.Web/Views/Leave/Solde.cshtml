@@ -1,13 +1,24 @@
+<<<<<<< HEAD
+@model PlateformeRHCollaborative.Web.Models.ViewModels.LeaveBalanceViewModel
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 @{
     ViewData["Title"] = "Mon solde de congés";
 }
 
 <div class="container mt-4">
+<<<<<<< HEAD
     <div class="section-header text-center mb-5">
         <h2 class="section-title">
             <i class="fas fa-chart-pie"></i> Mon solde de congés
         </h2>
     </div>
+=======
+    <h2 class="fw-bold mb-4" style="color: #0056b3;">
+        <i class="fas fa-chart-pie"></i> Mon solde de congés
+    </h2>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 
     <div class="row g-4">
         <!-- Carte totale -->
@@ -15,9 +26,15 @@
             <div class="card border-0 shadow-lg text-white bg-primary h-100" style="border-radius: 15px;">
                 <div class="card-body text-center p-4">
                     <i class="fas fa-calendar fa-3x mb-3"></i>
+<<<<<<< HEAD
+                    <h5 class="card-title mb-3">Total Annuel Alloué</h5>
+                    <h1 class="display-3 fw-bold">@Model.AnnualTotal</h1>
+                    <p class="mb-0">Jours fixes</p>
+=======
                     <h5 class="card-title mb-3">Total de congés annuels</h5>
                     <h1 class="display-3 fw-bold">25</h1>
                     <p class="mb-0">Jours alloués</p>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                 </div>
             </div>
         </div>
@@ -27,9 +44,15 @@
             <div class="card border-0 shadow-lg text-white" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-radius: 15px;">
                 <div class="card-body text-center p-4">
                     <i class="fas fa-calendar-times fa-3x mb-3"></i>
+<<<<<<< HEAD
+                    <h5 class="card-title mb-3">Congés Utilisés</h5>
+                    <h1 class="display-3 fw-bold">@Model.UsedDays</h1>
+                    <p class="mb-0">Jours approuvés</p>
+=======
                     <h5 class="card-title mb-3">Congés utilisés</h5>
                     <h1 class="display-3 fw-bold">10</h1>
                     <p class="mb-0">Jours pris</p>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                 </div>
             </div>
         </div>
@@ -39,14 +62,23 @@
             <div class="card border-0 shadow-lg text-white" style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%); border-radius: 15px;">
                 <div class="card-body text-center p-4">
                     <i class="fas fa-calendar-check fa-3x mb-3"></i>
+<<<<<<< HEAD
+                    <h5 class="card-title mb-3">Solde Disponible</h5>
+                    <h1 class="display-3 fw-bold">@Model.RemainingDays</h1>
+                    <p class="mb-0">Jours restants</p>
+=======
                     <h5 class="card-title mb-3">Congés restants</h5>
                     <h1 class="display-3 fw-bold">15</h1>
                     <p class="mb-0">Jours disponibles</p>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                 </div>
             </div>
         </div>
     </div>
 
+<<<<<<< HEAD
+
+=======
     <!-- Progress bar -->
     <div class="card border-0 shadow-sm mt-4" style="border-radius: 15px;">
         <div class="card-body p-4">
@@ -59,11 +91,69 @@
             </div>
         </div>
     </div>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 
     <!-- Détails par période -->
     <div class="card border-0 shadow-sm mt-4" style="border-radius: 15px;">
         <div class="card-body p-4">
             <h5 class="fw-bold mb-4">
+<<<<<<< HEAD
+                <i class="fas fa-history"></i> Historique des congés approuvés
+            </h5>
+            
+            @if (Model.History.Count == 0)
+            {
+                <div class="alert alert-info text-center">
+                    Aucun congé approuvé pour le moment.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col"><i class="fas fa-calendar-alt me-2"></i>Période</th>
+                                <th scope="col"><i class="fas fa-clock me-2"></i>Durée (Jours Ouvrables)</th>
+                                <th scope="col"><i class="fas fa-check-circle me-2"></i>Statut</th>
+                                <th scope="col"><i class="fas fa-user-check me-2"></i>Validé par</th>
+                                <th scope="col"><i class="fas fa-calendar-day me-2"></i>Date Validation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.History)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-bold text-dark">Du @item.StartDate.ToShortDateString()</span>
+                                            <span class="text-muted small">Au @item.EndDate.ToShortDateString()</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary rounded-pill px-3">@item.Duration jours</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">@item.Status</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-xs me-2 bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center" style="width: 24px; height: 24px; font-size: 10px;">
+                                                @(item.ApprovedByName.Length > 0 ? item.ApprovedByName[0].ToString().ToUpper() : "?")
+                                            </div>
+                                            <span>@item.ApprovedByName</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted small">
+                                        @(item.ApprovedAt?.ToShortDateString() ?? "-")
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+=======
                 <i class="fas fa-list-alt"></i> Détails
             </h5>
             <div class="table-responsive">
@@ -94,6 +184,7 @@
                     </tbody>
                 </table>
             </div>
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
         </div>
     </div>
 </div>

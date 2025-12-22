@@ -20,11 +20,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR();
 builder.Services.AddScoped<ILeaveRepository, LeaveRepository>();
 builder.Services.AddScoped<ITeleworkRepository, TeleworkRepository>();
+<<<<<<< HEAD
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
 builder.Services.AddScoped<LeaveService>();
 builder.Services.AddScoped<TeleworkService>();
 builder.Services.AddScoped<DocumentService>();
-builder.Services.AddScoped<IPerformanceService, PerformanceService>();
 builder.Services.AddHostedService<RoleInitializer>();
 
 var app = builder.Build();

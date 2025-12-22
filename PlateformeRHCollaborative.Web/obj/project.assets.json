@@ -6710,23 +6710,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ASUS ROG G16\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\YASMINE\\.nuget\\packages\\": {},
+    "D:\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj",
+      "projectUniqueName": "D:\\YASMINE\\.net\\PROJET\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj",
       "projectName": "PlateformeRHCollaborative.Web",
-      "projectPath": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj",
-      "packagesPath": "C:\\Users\\ASUS ROG G16\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project\\PlateformeRHCollaborative.Web\\obj\\",
+      "projectPath": "D:\\YASMINE\\.net\\PROJET\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj",
+      "packagesPath": "C:\\Users\\YASMINE\\.nuget\\packages\\",
+      "outputPath": "D:\\YASMINE\\.net\\PROJET\\PlateformeRHCollaborative.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "D:\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ASUS ROG G16\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\YASMINE\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -6753,7 +6753,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0": {
@@ -6829,7 +6829,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

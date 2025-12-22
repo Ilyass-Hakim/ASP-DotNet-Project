@@ -21,77 +21,26 @@ public class RoleInitializer : IHostedService
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
+<<<<<<< HEAD
             // Hack: Ajout manuel des colonnes car nous sommes sur SQL Server et les migrations sont bloquées
-            try
-            {
+            try {
                 await dbContext.Database.ExecuteSqlRawAsync("ALTER TABLE Employees ADD SalaryBase decimal(18,2) NOT NULL DEFAULT 3000", cancellationToken);
-            }
-            catch { /* Ignorer si déjà existant */ }
-            try
-            {
-                await dbContext.Database.ExecuteSqlRawAsync("ALTER TABLE Employees ADD PerformancePoints int NOT NULL DEFAULT 0", cancellationToken);
-            }
-            catch { /* Ignorer si déjà existant */ }
-
-            // Tables pour le module de performance
-            try
-            {
-                await dbContext.Database.ExecuteSqlRawAsync(@"
-                    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='EvaluationCriteria' AND xtype='U')
-                    CREATE TABLE EvaluationCriteria (
-                        Id INT PRIMARY KEY IDENTITY(1,1),
-                        Name NVARCHAR(MAX) NOT NULL,
-                        Weight FLOAT NOT NULL,
-                        Description NVARCHAR(MAX)
-                    )", cancellationToken);
-
-                await dbContext.Database.ExecuteSqlRawAsync(@"
-                    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='PerformanceEvaluations' AND xtype='U')
-                    CREATE TABLE PerformanceEvaluations (
-                        Id INT PRIMARY KEY IDENTITY(1,1),
-                        EmployeeId INT NOT NULL,
-                        ManagerId NVARCHAR(MAX) NOT NULL,
-                        EvaluationDate DATETIME2 NOT NULL,
-                        Period NVARCHAR(MAX) NOT NULL,
-                        FinalScore FLOAT NOT NULL,
-                        Status INT NOT NULL,
-                        CalculatedBonus DECIMAL(18,2) NOT NULL,
-                        BonusStatus INT NOT NULL,
-                        RHComments NVARCHAR(MAX),
-                        CONSTRAINT FK_PerformanceEvaluations_Employees_EmployeeId FOREIGN KEY (EmployeeId) REFERENCES Employees(Id) ON DELETE CASCADE
-                    )", cancellationToken);
-
-                await dbContext.Database.ExecuteSqlRawAsync(@"
-                    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='EvaluationDetails' AND xtype='U')
-                    CREATE TABLE EvaluationDetails (
-                        Id INT PRIMARY KEY IDENTITY(1,1),
-                        PerformanceEvaluationId INT NOT NULL,
-                        EvaluationCriteriaId INT NOT NULL,
-                        Score INT NOT NULL,
-                        CONSTRAINT FK_EvaluationDetails_PerformanceEvaluations_PerformanceEvaluationId FOREIGN KEY (PerformanceEvaluationId) REFERENCES PerformanceEvaluations(Id) ON DELETE CASCADE,
-                        CONSTRAINT FK_EvaluationDetails_EvaluationCriteria_EvaluationCriteriaId FOREIGN KEY (EvaluationCriteriaId) REFERENCES EvaluationCriteria(Id) ON DELETE CASCADE
-                    )", cancellationToken);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error creating tables: {ex.Message}");
-            }
+            } catch { /* Ignorer si déjà existant */ }
 
             // Attendre que la base de données soit prête
-            try
-            {
+            try {
                 await dbContext.Database.MigrateAsync(cancellationToken);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) { 
                 Console.WriteLine($"Migration error (ignoring): {ex.Message}");
             }
 
-            // Initialiser les critères par défaut
-            var performanceService = scope.ServiceProvider.GetRequiredService<IPerformanceService>();
-            await performanceService.InitializeDefaultCriteriaAsync();
+            string[] roles = { "Employe", "Manager", "RH", "Directeur" };
+=======
+            // Attendre que la base de données soit prête
+            await dbContext.Database.MigrateAsync(cancellationToken);
 
             string[] roles = { "Employe", "Manager", "RH" };
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
             foreach (var role in roles)
             {
                 if (!await roleManager.RoleExistsAsync(role))
@@ -99,11 +48,60 @@ public class RoleInitializer : IHostedService
                     await roleManager.CreateAsync(new IdentityRole(role));
                 }
             }
+<<<<<<< HEAD
+
+            // Seed Admin User
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var adminEmail = "admin@gmail.com";
+            
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+            if (adminUser == null)
+            {
+                adminUser = new IdentityUser 
+                { 
+                    UserName = adminEmail, 
+                    Email = adminEmail,
+                    EmailConfirmed = true
+                };
+                
+                var result = await userManager.CreateAsync(adminUser, "Yasmine123*");
+                
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(adminUser, "RH");
+                    
+                    // Create associated Employee record
+                    var employee = new PlateformeRHCollaborative.Web.Models.Employee
+                    {
+                        UserId = adminUser.Id,
+                        Nom = "Admin RH", // Legacy compatible
+                        FirstName = "Admin",
+                        LastName = "RH",
+                        Email = adminEmail,
+                        Role = "RH",
+                        Department = "RH",
+                        Matricule = "RH001",
+                        Poste = "Administrateur RH",
+                        HireDate = DateTime.Today,
+                        IsActive = true,
+                        SalaryBase = 4000
+                    };
+                    
+                    dbContext.Employees.Add(employee);
+                    await dbContext.SaveChangesAsync(cancellationToken);
+                }
+            }
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
         }
         catch (Exception ex)
         {
             // Logger l'erreur mais ne pas bloquer le démarrage
+<<<<<<< HEAD
             Console.WriteLine($"Erreur lors de l'initialisation des rôles : {ex}");
+=======
+            Console.WriteLine($"Erreur lors de l'initialisation des rôles : {ex.Message}");
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
         }
     }
 

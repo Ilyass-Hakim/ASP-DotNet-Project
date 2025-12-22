@@ -15,19 +15,27 @@ public class TeleworkRepository : ITeleworkRepository
 
 	public async Task<IEnumerable<Telework>> GetAllAsync()
 	{
+<<<<<<< HEAD
 		// Charger également l'employé lié pour permettre l'affichage du nom / email
 		return await _db.Teleworks
 			.Include(t => t.Employee)
 			.AsNoTracking()
 			.ToListAsync();
+=======
+		return await _db.Teleworks.AsNoTracking().ToListAsync();
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 	}
 
 	public async Task<Telework?> GetByIdAsync(int id)
 	{
+<<<<<<< HEAD
 		// Inclure systématiquement l'employé pour les traitements métier côté manager
 		return await _db.Teleworks
 			.Include(t => t.Employee)
 			.FirstOrDefaultAsync(t => t.Id == id);
+=======
+		return await _db.Teleworks.FindAsync(id);
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 	}
 
 	public async Task AddAsync(Telework entity)
@@ -51,6 +59,32 @@ public class TeleworkRepository : ITeleworkRepository
 			await _db.SaveChangesAsync();
 		}
 	}
+<<<<<<< HEAD
+
+    public async Task<bool> HasOverlapAsync(int employeeId, DateTime start, DateTime end)
+    {
+        return await _db.Teleworks
+            .AnyAsync(t => t.EmployeeId == employeeId 
+                        && t.Status != "Rejected" 
+                        && t.Status != "Cancelled"
+                        && t.StartDate <= end 
+                        && t.EndDate >= start);
+    }
+
+    public async Task<int> GetApprovedCountForTeamAsync(int managerId, DateTime start, DateTime end)
+    {
+        return await _db.Teleworks
+            .Include(t => t.Employee)
+            .Where(t => t.Employee.ManagerId == managerId 
+                        && t.Status == "Approved" 
+                        && t.StartDate <= end 
+                        && t.EndDate >= start)
+            .Select(t => t.EmployeeId)
+            .Distinct()
+            .CountAsync();
+    }
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 }
 
 

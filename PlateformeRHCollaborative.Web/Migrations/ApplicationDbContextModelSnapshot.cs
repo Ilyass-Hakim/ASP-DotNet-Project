@@ -261,22 +261,85 @@ namespace PlateformeRHCollaborative.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+<<<<<<< HEAD
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContractType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Matricule")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     b.Property<string>("Poste")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
+                    b.Property<string>("ProfilePictureUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
+                    b.Property<decimal>("SalaryBase")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     b.Property<int>("SoldeConges")
                         .HasColumnType("int");
 
@@ -286,6 +349,11 @@ namespace PlateformeRHCollaborative.Web.Migrations
 
                     b.HasKey("Id");
 
+<<<<<<< HEAD
+                    b.HasIndex("ManagerId");
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     b.ToTable("Employees");
                 });
 
@@ -297,6 +365,21 @@ namespace PlateformeRHCollaborative.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+<<<<<<< HEAD
+                    b.Property<DateTime?>("ApprovedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ApprovedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CancelledAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CancelledById")
+                        .HasColumnType("nvarchar(max)");
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -310,6 +393,15 @@ namespace PlateformeRHCollaborative.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
+                    b.Property<DateTime?>("RejectedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RejectedById")
+                        .HasColumnType("nvarchar(max)");
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     b.Property<string>("RejectionReason")
                         .HasColumnType("nvarchar(max)");
 
@@ -361,6 +453,21 @@ namespace PlateformeRHCollaborative.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+<<<<<<< HEAD
+                    b.Property<DateTime?>("ApprovedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ApprovedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CancelledAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CancelledById")
+                        .HasColumnType("nvarchar(max)");
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -373,6 +480,15 @@ namespace PlateformeRHCollaborative.Web.Migrations
                     b.Property<string>("Motif")
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
+                    b.Property<DateTime?>("RejectedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RejectedById")
+                        .HasColumnType("nvarchar(max)");
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     b.Property<string>("RejectionReason")
                         .HasColumnType("nvarchar(max)");
 
@@ -452,6 +568,19 @@ namespace PlateformeRHCollaborative.Web.Migrations
                     b.Navigation("Employee");
                 });
 
+<<<<<<< HEAD
+            modelBuilder.Entity("PlateformeRHCollaborative.Web.Models.Employee", b =>
+                {
+                    b.HasOne("PlateformeRHCollaborative.Web.Models.Employee", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Manager");
+                });
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
             modelBuilder.Entity("PlateformeRHCollaborative.Web.Models.Leave", b =>
                 {
                     b.HasOne("PlateformeRHCollaborative.Web.Models.Employee", "Employee")

@@ -1,0 +1,59 @@
+@model PlateformeRHCollaborative.Web.Models.ViewModels.UserSettingsViewModel
+
+@{
+    ViewData["Title"] = "Paramètres";
+}
+
+<div class="container mt-5">
+    
+    <!-- En-tête -->
+    <h2 class="mb-4 text-center">Paramètres</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm mb-4" role="alert" style="max-width: 600px; margin: 0 auto;">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Carte Unique : Changer le mot de passe -->
+    <div class="card border-0 shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-body p-4">
+            <h5 class="card-title fw-bold mb-4">Changer le mot de passe</h5>
+
+            <form asp-controller="Settings" asp-action="ChangePassword" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small"></div>
+
+                <!-- Mot de passe actuel -->
+                <div class="mb-3">
+                    <label asp-for="CurrentPassword" class="form-label">Mot de passe actuel</label>
+                    <input asp-for="CurrentPassword" class="form-control" placeholder="" />
+                    <span asp-validation-for="CurrentPassword" class="text-danger small"></span>
+                </div>
+
+                <!-- Nouveau mot de passe -->
+                <div class="mb-3">
+                    <label asp-for="NewPassword" class="form-label">Nouveau mot de passe</label>
+                    <input asp-for="NewPassword" class="form-control" placeholder="" />
+                    <span asp-validation-for="NewPassword" class="text-danger small"></span>
+                </div>
+
+                <!-- Confirmer le mot de passe -->
+                <div class="mb-4">
+                    <label asp-for="ConfirmPassword" class="form-label">Confirmer le mot de passe</label>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                </div>
+
+                <!-- Bouton Enregistrer -->
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary px-4">
+                        Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

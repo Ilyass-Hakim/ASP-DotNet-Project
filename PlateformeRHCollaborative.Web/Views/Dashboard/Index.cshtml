@@ -8,6 +8,34 @@
         <p class="text-muted">Visualisez les statistiques des congés et du télétravail par période et par équipe.</p>
     </div>
 
+<<<<<<< HEAD
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="card border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Administration des Soldes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h6 class="card-title">Réinitialisation Annuelle</h6>
+                            <p class="card-text text-muted small">Cett action remettra le solde de congés de <strong>tous les employés</strong> à 25 jours. À utiliser uniquement le 1er Janvier ou lors de l'initialisation du système.</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                             <form asp-controller="Dashboard" asp-action="ResetBalances" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir réinitialiser le solde de TOUS les employés à 25 jours ? Cette action est irréversible.');">
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="fas fa-sync-alt me-2"></i> Réinitialiser Tout (25 jours)
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+=======
+>>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
     <div class="row g-4">
         <!-- Congés pris par jour -->
         <div class="col-md-6">
