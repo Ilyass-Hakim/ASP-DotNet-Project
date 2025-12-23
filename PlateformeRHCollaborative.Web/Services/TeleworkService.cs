@@ -5,7 +5,6 @@ namespace PlateformeRHCollaborative.Web.Services;
 
 public class TeleworkService
 {
-<<<<<<< HEAD
     private readonly ITeleworkRepository _repo;
     private readonly ILeaveRepository _leaveRepo;
     private readonly IEmployeeRepository _employeeRepo;
@@ -37,7 +36,18 @@ public class TeleworkService
             await CheckTeamLimitAsync(employee.ManagerId.Value, entity.StartDate, entity.EndDate);
         }
 
-        entity.Status = "Pending";
+        // 3. Auto-approbation (Si Directeur)
+        if (employee != null && employee.Role == "Directeur")
+        {
+            entity.Status = "Approved";
+            entity.ApprovedAt = DateTime.Now;
+            entity.ApprovedById = employee.UserId;
+        }
+        else
+        {
+            entity.Status = "Pending";
+        }
+
         await _repo.AddAsync(entity);
     }
 
@@ -127,20 +137,6 @@ public class TeleworkService
         if (totalAbsent > 1 && ratio > 0.30)
             throw new BusinessException($"La limite de 30% d'absence de l'équipe serait dépassée ({ratio*100:N0}%).");
     }
-=======
-	private readonly ITeleworkRepository _repo;
-
-	public TeleworkService(ITeleworkRepository repo)
-	{
-		_repo = repo;
-	}
-
-	public Task<IEnumerable<Telework>> GetAllAsync() => _repo.GetAllAsync();
-	public Task<Telework?> GetByIdAsync(int id) => _repo.GetByIdAsync(id);
-	public Task AddAsync(Telework entity) => _repo.AddAsync(entity);
-	public Task UpdateAsync(Telework entity) => _repo.UpdateAsync(entity);
-	public Task DeleteAsync(int id) => _repo.DeleteAsync(id);
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 }
 
 

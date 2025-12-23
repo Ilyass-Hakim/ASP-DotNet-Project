@@ -1,59 +1,410 @@
 @model PlateformeRHCollaborative.Web.Models.ViewModels.UserSettingsViewModel
 
 @{
-    ViewData["Title"] = "Paramètres";
+    ViewData["Title"] = "Paramètres du Compte";
 }
 
-<div class="container mt-5">
-    
-    <!-- En-tête -->
-    <h2 class="mb-4 text-center">Paramètres</h2>
-
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show shadow-sm mb-4" role="alert" style="max-width: 600px; margin: 0 auto;">
-            @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="settings-layout">
+    <!-- Sidebar Navigation -->
+    <div class="settings-sidebar">
+        <div class="sidebar-header">
+            <h3>Paramètres</h3>
+            <p class="text-muted small">Gérez vos préférences</p>
         </div>
-    }
+        <nav class="settings-nav">
+            <a href="#" class="nav-item active" data-target="section-security">
+                <i class="fas fa-shield-alt"></i> Sécurité & Connexion
+            </a>
+            <a href="#" class="nav-item" data-target="section-notifications">
+                <i class="fas fa-bell"></i> Notifications
+            </a>
+            <a href="#" class="nav-item" data-target="section-language">
+                <i class="fas fa-globe"></i> Langue & Région
+            </a>
+            <a href="#" class="nav-item" data-target="section-support">
+                <i class="fas fa-question-circle"></i> Aide & Support
+            </a>
+        </nav>
+    </div>
 
-    <!-- Carte Unique : Changer le mot de passe -->
-    <div class="card border-0 shadow-sm mx-auto" style="max-width: 600px;">
-        <div class="card-body p-4">
-            <h5 class="card-title fw-bold mb-4">Changer le mot de passe</h5>
+    <!-- Main Content Area -->
+    <div class="settings-content">
+        
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show shadow-sm mb-4 border-0" role="alert">
+                <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
 
-            <form asp-controller="Settings" asp-action="ChangePassword" method="post">
-                @Html.AntiForgeryToken()
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small"></div>
-
-                <!-- Mot de passe actuel -->
-                <div class="mb-3">
-                    <label asp-for="CurrentPassword" class="form-label">Mot de passe actuel</label>
-                    <input asp-for="CurrentPassword" class="form-control" placeholder="" />
-                    <span asp-validation-for="CurrentPassword" class="text-danger small"></span>
+        <!-- 1. Security Section -->
+        <div id="section-security" class="settings-section active">
+            <div class="settings-card">
+                <div class="card-header-custom">
+                    <h4><i class="fas fa-lock me-2 text-primary"></i>Changer le mot de passe</h4>
+                    <p class="text-muted mb-0">Mettez à jour votre mot de passe pour sécuriser votre compte.</p>
                 </div>
+                
+                <div class="card-body-custom">
+                    <form asp-controller="Settings" asp-action="ChangePassword" method="post">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small alert alert-danger border-0 bg-danger-subtle p-2 rounded"></div>
 
-                <!-- Nouveau mot de passe -->
-                <div class="mb-3">
-                    <label asp-for="NewPassword" class="form-label">Nouveau mot de passe</label>
-                    <input asp-for="NewPassword" class="form-control" placeholder="" />
-                    <span asp-validation-for="NewPassword" class="text-danger small"></span>
-                </div>
+                        <!-- Current Password -->
+                        <div class="form-group mb-4">
+                            <label asp-for="CurrentPassword" class="form-label fw-bold small text-uppercase text-muted">Mot de passe actuel</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="fas fa-key text-muted"></i></span>
+                                <input asp-for="CurrentPassword" class="form-control border-start-0 ps-0 bg-light" placeholder="Entrez votre mot de passe actuel" />
+                            </div>
+                            <span asp-validation-for="CurrentPassword" class="text-danger small mt-1 d-block"></span>
+                        </div>
 
-                <!-- Confirmer le mot de passe -->
-                <div class="mb-4">
-                    <label asp-for="ConfirmPassword" class="form-label">Confirmer le mot de passe</label>
-                    <input asp-for="ConfirmPassword" class="form-control" placeholder="" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
-                </div>
+                        <div class="row g-3 mb-4">
+                            <!-- New Password -->
+                            <div class="col-md-6">
+                                <label asp-for="NewPassword" class="form-label fw-bold small text-uppercase text-muted">Nouveau mot de passe</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="fas fa-lock text-muted"></i></span>
+                                    <input asp-for="NewPassword" class="form-control border-start-0 ps-0 bg-light" placeholder="8 caractères minimum" />
+                                </div>
+                                <span asp-validation-for="NewPassword" class="text-danger small mt-1 d-block"></span>
+                            </div>
 
-                <!-- Bouton Enregistrer -->
-                <div class="text-end">
-                    <button type="submit" class="btn btn-primary px-4">
-                        Enregistrer
-                    </button>
+                            <!-- Confirm Password -->
+                            <div class="col-md-6">
+                                <label asp-for="ConfirmPassword" class="form-label fw-bold small text-uppercase text-muted">Confirmer</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="fas fa-check-circle text-muted"></i></span>
+                                    <input asp-for="ConfirmPassword" class="form-control border-start-0 ps-0 bg-light" placeholder="Répétez le mot de passe" />
+                                </div>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center mt-5 pt-3 border-top">
+                            <button type="button" class="btn btn-link text-muted text-decoration-none me-3">Annuler</button>
+                            <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm fw-bold">
+                                <i class="fas fa-save me-2"></i> Enregistrer les modifications
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
+
+        <!-- 2. Notifications Section -->
+        <div id="section-notifications" class="settings-section" style="display:none;">
+            <div class="settings-card">
+                <div class="card-header-custom">
+                    <h4><i class="fas fa-bell me-2 text-warning"></i>Notifications</h4>
+                    <p class="text-muted mb-0">Gérez vos préférences de notification</p>
+                </div>
+                <div class="card-body-custom">
+                    <form>
+                        <div class="notification-list">
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="notifEmail" checked>
+                                <label class="form-check-label ms-2" for="notifEmail">Recevoir des notifications par email</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="notifRequests" checked>
+                                <label class="form-check-label ms-2" for="notifRequests">Recevoir des notifications pour les nouvelles demandes</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="notifApprovals" checked>
+                                <label class="form-check-label ms-2" for="notifApprovals">Recevoir des notifications pour les approbations</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="notifRejections" checked>
+                                <label class="form-check-label ms-2" for="notifRejections">Recevoir des notifications pour les rejets</label>
+                            </div>
+                            <div class="form-check form-switch mb-4">
+                                <input class="form-check-input" type="checkbox" id="notifWeekly">
+                                <label class="form-check-label ms-2" for="notifWeekly">Recevoir un résumé hebdomadaire</label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center mt-4 pt-3 border-top">
+                            <button type="button" class="btn btn-link text-muted text-decoration-none me-3">Annuler</button>
+                            <button type="button" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm fw-bold">
+                                <i class="fas fa-save me-2"></i> Enregistrer les modifications
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Language & Region Section -->
+        <div id="section-language" class="settings-section" style="display:none;">
+            <div class="settings-card">
+                <div class="card-header-custom">
+                    <h4><i class="fas fa-globe me-2 text-info"></i>Langue & Région</h4>
+                    <p class="text-muted mb-0">Personnalisez vos préférences régionales</p>
+                </div>
+                <div class="card-body-custom">
+                    <form>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-uppercase text-muted">Langue</label>
+                            <select class="form-select form-select-lg">
+                                <option value="fr" selected>Français</option>
+                                <option value="en">English</option>
+                                <option value="ar">العربية</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-uppercase text-muted">Format de date</label>
+                            <select class="form-select form-select-lg">
+                                <option value="dd/MM/yyyy" selected>JJ/MM/AAAA (ex: 23/12/2025)</option>
+                                <option value="MM/dd/yyyy">MM/JJ/AAAA (ex: 12/23/2025)</option>
+                                <option value="yyyy-MM-dd">AAAA-MM-JJ (ex: 2025-12-23)</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-uppercase text-muted">Fuseau Horaire</label>
+                            <select class="form-select form-select-lg">
+                                <option value="gmt+1">(GMT+1) Paris</option>
+                                <option value="gmt+1-madrid" selected>(GMT+1) Madrid</option>
+                                <option value="gmt">GMT</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center mt-5 pt-3 border-top">
+                            <button type="button" class="btn btn-link text-muted text-decoration-none me-3">Annuler</button>
+                            <button type="button" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm fw-bold">
+                                <i class="fas fa-save me-2"></i> Enregistrer les modifications
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Help & Support Section -->
+        <div id="section-support" class="settings-section" style="display:none;">
+            <div class="settings-card">
+                <div class="card-header-custom">
+                    <h4><i class="fas fa-question-circle me-2 text-success"></i>Aide & Support</h4>
+                    <p class="text-muted mb-0">Besoin d'aide ? Nous sommes là pour vous</p>
+                </div>
+                <div class="card-body-custom">
+                    <div class="support-grid">
+                        <!-- Documentation -->
+                        <div class="support-item p-3 rounded bg-light border mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1"><i class="fas fa-book me-2 text-primary"></i>Documentation</h5>
+                                    <p class="mb-0 text-muted small">Consultez notre guide d'utilisation complet</p>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-outline-primary rounded-pill">Voir la documentation</a>
+                            </div>
+                        </div>
+
+                        <!-- Contact Support -->
+                        <div class="support-item p-3 rounded bg-light border mb-3">
+                            <div class="d-flex flex-column">
+                                <h5 class="mb-3"><i class="fas fa-comments me-2 text-success"></i>Contact Support</h5>
+                                <p class="mb-2 text-muted small">Contactez notre équipe si vous avez des questions</p>
+                                <div class="contact-details ps-3 border-start border-3 border-success">
+                                    <div class="mb-1"><i class="fas fa-envelope text-muted me-2"></i> support@collaborh.com</div>
+                                    <div><i class="fas fa-phone text-muted me-2"></i> +212 5XX-XXXXXX</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Report Bug -->
+                        <div class="support-item p-3 rounded bg-light border mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1"><i class="fas fa-bug me-2 text-danger"></i>Signaler un Bug</h5>
+                                    <p class="mb-0 text-muted small">Signalez-nous tout problème technique</p>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-outline-danger rounded-pill">Signaler un problème</a>
+                            </div>
+                        </div>
+
+                        <!-- About -->
+                        <div class="support-item p-3 rounded bg-white border mt-4 text-center">
+                            <img src="" onerror="this.style.display='none'" class="mb-2" style="height:40px;" /> 
+                            <h6 class="text-uppercase text-muted fw-bold letter-spacing-1">CollabRH</h6>
+                            <p class="text-muted small mb-0">Version 1.0.0</p>
+                            <p class="text-muted small mt-1">&copy; 2025 Tous droits réservés</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
+
+<style>
+    /* Scoped CSS for Settings Page */
+    .settings-layout {
+        display: flex;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Sidebar */
+    .settings-sidebar {
+        width: 280px;
+        flex-shrink: 0;
+    }
+    
+    .sidebar-header {
+        margin-bottom: 2rem;
+        padding-left: 1rem;
+    }
+
+    .settings-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        color: #4B5563;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+
+    .nav-item i {
+        width: 24px;
+        margin-right: 10px;
+        text-align: center;
+    }
+
+    .nav-item:hover:not(.active) {
+        background-color: #F3F4F6;
+        color: #111827;
+    }
+
+    .nav-item.active {
+        background-color: #EEF2FF;
+        color: #4F46E5;
+        font-weight: 600;
+    }
+
+    /* Content Area */
+    .settings-content {
+        flex-grow: 1;
+        max-width: 800px;
+    }
+
+    .settings-section {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card Styling */
+    .settings-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+    }
+
+    .card-header-custom {
+        padding: 2rem 2rem 1.5rem;
+        border-bottom: 1px solid #F3F4F6;
+        background: linear-gradient(to right, #ffffff, #f9fafb);
+    }
+
+    .card-body-custom {
+        padding: 2rem;
+    }
+
+    /* Form Styling */
+    .form-control, .form-select {
+        border-color: #E5E7EB;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #4F46E5;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        background-color: white;
+    }
+    
+    .input-group-text {
+        border-color: #E5E7EB;
+    }
+    
+    .input-group:focus-within .input-group-text {
+        background-color: white !important;
+        border-color: #4F46E5;
+        color: #4F46E5 !important;
+    }
+    .input-group:focus-within i {
+        color: #4F46E5 !important;
+    }
+    .input-group:focus-within .form-control {
+         border-left: 1px solid #4F46E5 !important;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .settings-layout {
+            flex-direction: column;
+        }
+        .settings-sidebar {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        .settings-nav {
+            flex-direction: row;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        .nav-item {
+            white-space: nowrap;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Scoped selector to avoid conflict with main layout navigation
+        const navItems = document.querySelectorAll('.settings-nav .nav-item');
+        const sections = document.querySelectorAll('.settings-section');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Ensure we are only handling clicks for settings navigation
+                e.preventDefault();
+
+                // 1. Remove active class from all nav items
+                navItems.forEach(nav => nav.classList.remove('active'));
+
+                // 2. Add active class to clicked item
+                this.classList.add('active');
+
+                // 3. Hide all sections
+                sections.forEach(section => section.style.display = 'none');
+                sections.forEach(section => section.classList.remove('active'));
+
+                // 4. Show target section
+                const targetId = this.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                }
+            });
+        });
+    });
+</script>

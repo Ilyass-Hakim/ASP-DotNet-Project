@@ -1,0 +1,214 @@
+@model PlateformeRHCollaborative.Web.Models.ViewModels.EmployeeDashboardVM
+
+@{
+    ViewData["Title"] = "Mon Espace";
+}
+
+<div class="container-fluid fade-in">
+    <!-- Section 1: Informations Personnelles -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm rounded-4 bg-primary text-white" style="background: linear-gradient(135deg, #4e54c8, #8f94fb);">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="me-4 position-relative">
+                             <img src="@Model.Employee.ProfilePictureUrl" alt="@Model.Employee.Nom" class="rounded-circle border border-3 border-white shadow-sm" style="width: 80px; height: 80px; object-fit: cover;">
+                        </div>
+                        <div>
+                            <h2 class="fw-bold mb-1">Bonjour, @Model.Employee.FirstName !</h2>
+                            <p class="mb-0 opacity-75"><i class="fas fa-briefcase me-2"></i>@Model.Employee.Poste <span class="mx-2">|</span> <i class="fas fa-building me-2"></i>@Model.Employee.Department</p>
+                            @if(Model.Employee.Manager != null)
+                            {
+                                <div class="mt-2 badge bg-white text-primary rounded-pill px-3 py-2">
+                                    <i class="fas fa-user-tie me-1"></i> Manager : @Model.Employee.Manager.Nom
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2: Solde de Congés -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3 mb-md-0">
+            <div class="card border-0 shadow-sm rounded-4 h-100 hover-card">
+                <div class="card-body text-center p-4">
+                    <h5 class="text-secondary fw-semibold mb-3">Solde Disponible</h5>
+                    <div class="display-3 fw-bold @(Model.Employee.SoldeConges < 5 ? "text-danger" : "text-primary")">
+                        @Model.Employee.SoldeConges
+                    </div>
+                    <span class="text-muted">Jours</span>
+                    @if(Model.Employee.SoldeConges < 5)
+                    {
+                        <div class="mt-3 alert alert-warning py-1 small rounded-pill">
+                            <i class="fas fa-exclamation-triangle me-1"></i> Solde bas
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3 mb-md-0">
+             <div class="card border-0 shadow-sm rounded-4 h-100 hover-card">
+                <div class="card-body p-4">
+                    <h5 class="text-secondary fw-semibold mb-3">Récapitulatif Annuel</h5>
+                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                         <span class="text-muted"><i class="fas fa-check-circle text-success me-2"></i>Pris</span>
+                         <span class="fw-bold">@Model.DaysTakenThisYear jours</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                         <span class="text-muted"><i class="fas fa-calendar-alt text-info me-2"></i>Planifiés</span>
+                         <span class="fw-bold">@Model.DaysPlanned jours</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                         <span class="text-muted"><i class="fas fa-hourglass-half text-warning me-2"></i>En attente</span>
+                         <span class="fw-bold">@Model.PendingRequestsCount</span>
+                    </div>
+                </div>
+             </div>
+        </div>
+        <div class="col-md-4">
+             <div class="card border-0 shadow-sm rounded-4 h-100 bg-light d-flex flex-column justify-content-center align-items-center p-4">
+                <a asp-controller="Leave" asp-action="Create" class="btn btn-primary btn-lg rounded-pill w-100 mb-3 shadow-sm custom-btn">
+                     <i class="fas fa-plus-circle me-2"></i>Demander un Congé
+                </a>
+                <a asp-controller="Telework" asp-action="Create" class="btn btn-outline-primary btn-lg rounded-pill w-100 custom-btn">
+                     <i class="fas fa-laptop-house me-2"></i>Demander Télétravail
+                </a>
+             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Section 3: Mes Demandes Récentes -->
+        <div class="col-lg-8 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0 text-primary"><i class="fas fa-history me-2"></i>Mes Demandes Récentes</h5>
+                    <a asp-action="Index" asp-controller="Leave" class="btn btn-sm btn-light text-primary rounded-pill">Tout voir</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-light text-secondary">
+                                <tr>
+                                    <th class="ps-4 border-0">Type</th>
+                                    <th class="border-0">Période</th>
+                                    <th class="border-0">Statut</th>
+                                    <th class="border-0 text-end pe-4">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(Model.RecentRequests.Any())
+                                {
+                                    @foreach(var item in Model.RecentRequests)
+                                    {
+                                        <tr>
+                                            <td class="ps-4">
+                                                @if(item.Type == "Congé")
+                                                {
+                                                    <span class="badge bg-soft-primary text-primary rounded-pill px-3"><i class="fas fa-umbrella-beach me-1"></i>Congé</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-soft-info text-info rounded-pill px-3"><i class="fas fa-laptop me-1"></i>Télétravail</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="small fw-bold">@item.StartDate.ToString("dd MMM") - @item.EndDate.ToString("dd MMM yyyy")</div>
+                                                <div class="text-muted x-small">@((item.EndDate - item.StartDate).Days + 1) jours</div>
+                                            </td>
+                                            <td>
+                                                @if(item.Status == "Approved")
+                                                {
+                                                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2"><i class="fas fa-check me-1"></i>Approuvé</span>
+                                                }
+                                                else if(item.Status == "Rejected")
+                                                {
+                                                    <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-2"><i class="fas fa-times me-1"></i>Refusé</span>
+                                                }
+                                                else
+                                                {
+                                                     <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-2"><i class="fas fa-clock me-1"></i>En attente</span>
+                                                }
+                                            </td>
+                                            <td class="text-end pe-4 text-muted small">
+                                                @item.CreatedAt.ToString("dd/MM/yyyy")
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center py-5 text-muted">
+                                            <i class="fas fa-folder-open fa-2x mb-3 d-block opacity-50"></i>
+                                            Aucune demande récente
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Absences dans Mon Équipe -->
+        <div class="col-lg-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-0 py-3">
+                     <h5 class="fw-bold mb-0 text-secondary"><i class="fas fa-users me-2"></i>Mon Équipe (Absents)</h5>
+                </div>
+                <div class="card-body">
+                    @if(Model.AbsentColleagues.Any())
+                    {
+                        <ul class="list-group list-group-flush">
+                            @foreach(var colleague in Model.AbsentColleagues)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-3 border-bottom-0">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-placeholder rounded-circle bg-light text-primary d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-weight: bold;">
+                                            @colleague.Name.Substring(0,1)
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold">@colleague.Name</div>
+                                            <small class="text-muted">Absent aujourd'hui</small>
+                                        </div>
+                                    </div>
+                                    @if(colleague.Type == "Congé")
+                                    {
+                                        <span class="badge bg-warning text-dark"><i class="fas fa-umbrella-beach"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-info text-dark"><i class="fas fa-laptop"></i></span>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4 text-muted">
+                            <i class="fas fa-user-check fa-2x mb-3 text-success opacity-50"></i>
+                            <p class="mb-0">Tout le monde est présent aujourd'hui !</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-soft-primary { background-color: rgba(13, 110, 253, 0.1); }
+    .bg-soft-info { background-color: rgba(13, 202, 240, 0.1); }
+    .hover-card { transition: transform 0.2s ease-in-out; }
+    .hover-card:hover { transform: translateY(-5px); }
+    .custom-btn { transition: all 0.3s; }
+    .custom-btn:hover { transform: scale(1.02); }
+    .fade-in { animation: fadeIn 0.5s ease-in; }
+    @@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>

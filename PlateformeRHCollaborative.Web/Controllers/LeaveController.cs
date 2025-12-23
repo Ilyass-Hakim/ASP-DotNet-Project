@@ -16,11 +16,7 @@ public class LeaveController : Controller
     private readonly LeaveService _service;
     private readonly IHubContext<NotificationsHub> _hubContext;
     private readonly UserManager<IdentityUser> _userManager;
-<<<<<<< HEAD
 		private readonly ApplicationDbContext _context;
-=======
-    private readonly ApplicationDbContext _context;
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 
     public LeaveController(LeaveService service, IHubContext<NotificationsHub> hubContext, UserManager<IdentityUser> userManager, ApplicationDbContext context)
     {
@@ -45,7 +41,6 @@ public class LeaveController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(Leave model)
     {
-<<<<<<< HEAD
         // Remove fields set by the system
         ModelState.Remove("EmployeeId");
         ModelState.Remove("Employee");
@@ -95,36 +90,6 @@ public class LeaveController : Controller
             ViewBag.ErrorMessage = ex.Message;
             return View(model);
         }
-=======
-        if (!ModelState.IsValid) return View(model);
-
-        // Récupérer l'utilisateur connecté
-        var userId = _userManager.GetUserId(User);
-        if (string.IsNullOrEmpty(userId))
-        {
-            ViewBag.ErrorMessage = "Utilisateur non authentifié.";
-            return View(model);
-        }
-
-        // Trouver l'Employee correspondant au UserId
-        var employee = await _context.Employees.FirstOrDefaultAsync(e => e.UserId == userId);
-        if (employee == null)
-        {
-            ViewBag.ErrorMessage = "Aucun employé trouvé pour votre compte. Veuillez contacter les RH.";
-            return View(model);
-        }
-
-        // Assigner l'EmployeeId avant l'insertion
-        model.EmployeeId = employee.Id;
-
-        await _service.AddAsync(model);
-
-        // Notification temps réel aux managers
-        await _hubContext.Clients.All.SendAsync("ReceiveNotification", 
-            $"Nouvelle demande de congé du {model.StartDate:dd/MM/yyyy} au {model.EndDate:dd/MM/yyyy}.");
-
-        return RedirectToAction(nameof(Index));
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
     }
 
     [HttpGet]
@@ -138,7 +103,6 @@ public class LeaveController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(int id, Leave model)
     {
-<<<<<<< HEAD
         // Simple update, validation rules might be bypassed here if we don't use Service.Update logic with rules.
         // But for now, user asked for Add/Approve/Reject/Cancel.
         // Edit usually restarts the process or is limited.
@@ -158,10 +122,6 @@ public class LeaveController : Controller
              return View(model);
         }
 
-=======
-        if (id != model.Id) return BadRequest();
-        if (!ModelState.IsValid) return View(model);
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
         await _service.UpdateAsync(model);
         return RedirectToAction(nameof(Index));
     }
@@ -169,7 +129,6 @@ public class LeaveController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
-<<<<<<< HEAD
         try
         {
             var userId = _userManager.GetUserId(User);
@@ -269,20 +228,10 @@ public class LeaveController : Controller
         }
 
         return View(model);
-=======
-        await _service.DeleteAsync(id);
-        return RedirectToAction(nameof(Index));
-    }
-
-    public IActionResult Solde()
-    {
-        return View();
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
     }
 
     public async Task<IActionResult> MyLeaves()
     {
-<<<<<<< HEAD
 		// Filtrer les congés pour l'employé actuellement connecté
 		var userId = _userManager.GetUserId(User);
 		if (string.IsNullOrEmpty(userId))
@@ -301,15 +250,10 @@ public class LeaveController : Controller
 		var items = await _service.GetAllAsync();
 		var myItems = items.Where(l => l.EmployeeId == employee.Id).ToList();
 		return View("List", myItems);
-=======
-        var items = await _service.GetAllAsync();
-        return View("List", items);
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
     }
 
     public async Task<IActionResult> History()
     {
-<<<<<<< HEAD
 		// Historique limité à l'employé actuellement connecté
 		var userId = _userManager.GetUserId(User);
 		if (string.IsNullOrEmpty(userId))
@@ -328,10 +272,6 @@ public class LeaveController : Controller
 		var items = await _service.GetAllAsync();
 		var myItems = items.Where(l => l.EmployeeId == employee.Id).ToList();
 		return View("History", myItems);
-=======
-        var items = await _service.GetAllAsync();
-        return View("History", items);
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
     }
 }
 

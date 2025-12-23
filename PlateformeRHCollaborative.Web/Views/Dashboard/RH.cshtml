@@ -1,0 +1,254 @@
+@model PlateformeRHCollaborative.Web.Models.ViewModels.RHDashboardVM
+
+@{
+    ViewData["Title"] = "Tableau de Bord RH";
+}
+
+<div class="dashboard-wrapper">
+    <div class="dashboard-container">
+        
+        <!-- En-tête -->
+        <div class="dashboard-header text-center">
+            <h1>Tableau de Bord RH</h1>
+            <p class="subtitle">Vue d'ensemble et statistiques organisationnelles</p>
+        </div>
+
+        <!-- Section 1 : KPI Cards (3 cartes UNIQUEMENT) -->
+        <div class="kpi-cards">
+            <!-- Carte 1 : Total Employés -->
+            <div class="kpi-card bg-blue">
+                <div class="kpi-icon"><i class="fas fa-users"></i></div>
+                <div class="kpi-value">@Model.TotalEmployees</div>
+                <div class="kpi-label">TOTAL EMPLOYÉS</div>
+            </div>
+
+            <!-- Carte 2 : Absents (Congé) -->
+            <div class="kpi-card bg-orange">
+                <div class="kpi-icon"><i class="fas fa-plane-departure"></i></div>
+                <div class="kpi-value">@Model.TotalAbsent</div>
+                <div class="kpi-label">ABSENTS (CONGÉ)</div>
+            </div>
+
+            <!-- Carte 3 : En Télétravail -->
+            <div class="kpi-card bg-green">
+                <div class="kpi-icon"><i class="fas fa-laptop-house"></i></div>
+                <div class="kpi-value">@Model.TotalTeleworking</div>
+                <div class="kpi-label">EN TÉLÉTRAVAIL</div>
+            </div>
+        </div>
+
+        <!-- Section 2 : Répartition par Département -->
+        <section class="department-section">
+            <h2>Répartition par Département</h2>
+            <div class="table-container">
+                <table class="department-table">
+                    <thead>
+                        <tr>
+                            <th>Département</th>
+                            <th class="text-center">Effectif</th>
+                            <th class="text-center">Absents</th>
+                            <th class="text-center">Taux d'Absence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var dept in Model.DepartmentStats)
+                        {
+                            <tr>
+                                <td class="fw-bold">@dept.Name</td>
+                                <td class="text-center">@dept.EmployeeCount</td>
+                                <td class="text-center">@dept.AbsentCount</td>
+                                <td class="text-center">
+                                    <span class="badge @(dept.AbsenceRate > 20 ? "bg-warning" : "bg-light text-dark")">
+                                        @dept.AbsenceRate.ToString("0.0")%
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<style>
+    /* Global & Variables */
+    :root {
+        --color-blue: #4F46E5;
+        --color-orange: #F59E0B;
+        --color-green: #10B981;
+        --color-gray-dark: #374151;
+        --color-bg: #F3F4F6;
+        --color-white: #FFFFFF;
+        --text-dark: #1F2937;
+        --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --radius-card: 16px;
+        --radius-table: 12px;
+    }
+
+    body {
+        background-color: var(--color-bg);
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        color: var(--text-dark);
+    }
+
+    .dashboard-wrapper {
+        min-height: 100vh;
+        width: 100%;
+        padding: 40px 20px;
+        background-color: var(--color-bg);
+    }
+
+    .dashboard-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Header */
+    .dashboard-header {
+        margin-bottom: 3rem;
+    }
+
+    .dashboard-header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+    }
+
+    .dashboard-header .subtitle {
+        font-size: 1.1rem;
+        color: #6B7280;
+    }
+
+    /* KPI Cards */
+    .kpi-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .kpi-card {
+        border-radius: var(--radius-card);
+        padding: 2rem;
+        color: white;
+        text-align: center;
+        box-shadow: var(--shadow-subtle);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        min-height: 200px;
+        transition: transform 0.3s ease;
+    }
+
+    .kpi-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .kpi-card.bg-blue { background-color: var(--color-blue); }
+    .kpi-card.bg-orange { background-color: var(--color-orange); }
+    .kpi-card.bg-green { background-color: var(--color-green); }
+
+    .kpi-icon {
+        font-size: 1.5rem;
+        opacity: 0.8;
+        margin-bottom: 0.5rem;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+
+    .kpi-value {
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    .kpi-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        opacity: 0.9;
+        letter-spacing: 0.05em;
+    }
+
+    /* Department Section */
+    .department-section {
+        margin-top: 2rem;
+    }
+
+    .department-section h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .table-container {
+        background-color: var(--color-white);
+        border-radius: var(--radius-table);
+        box-shadow: var(--shadow-subtle);
+        overflow: hidden;
+    }
+
+    .department-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .department-table th {
+        background-color: var(--color-gray-dark);
+        color: white;
+        padding: 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        text-align: left;
+    }
+
+    .department-table th.text-center { text-align: center; }
+    .department-table td.text-center { text-align: center; }
+
+    .department-table td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #E5E7EB;
+        font-size: 1rem;
+        color: var(--text-dark);
+    }
+
+    .department-table tbody tr:nth-child(even) {
+        background-color: #F9FAFB;
+    }
+
+    .department-table tbody tr:hover {
+        background-color: #F3F4F6;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .kpi-cards {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2rem;
+        }
+        
+        .kpi-value {
+            font-size: 2.5rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+    }
+</style>

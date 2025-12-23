@@ -16,7 +16,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Telework> Teleworks => Set<Telework>();
     public DbSet<DocumentRequest> DocumentRequests => Set<DocumentRequest>();
     public DbSet<Notification> Notifications => Set<Notification>();
-<<<<<<< HEAD
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -33,6 +32,4 @@ public class ApplicationDbContext : IdentityDbContext
             .Property(e => e.SalaryBase)
             .HasPrecision(18, 2);
     }
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 }

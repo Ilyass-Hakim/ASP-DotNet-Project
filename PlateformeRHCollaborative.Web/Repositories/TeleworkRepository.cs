@@ -15,27 +15,19 @@ public class TeleworkRepository : ITeleworkRepository
 
 	public async Task<IEnumerable<Telework>> GetAllAsync()
 	{
-<<<<<<< HEAD
 		// Charger également l'employé lié pour permettre l'affichage du nom / email
 		return await _db.Teleworks
 			.Include(t => t.Employee)
 			.AsNoTracking()
 			.ToListAsync();
-=======
-		return await _db.Teleworks.AsNoTracking().ToListAsync();
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 	}
 
 	public async Task<Telework?> GetByIdAsync(int id)
 	{
-<<<<<<< HEAD
 		// Inclure systématiquement l'employé pour les traitements métier côté manager
 		return await _db.Teleworks
 			.Include(t => t.Employee)
 			.FirstOrDefaultAsync(t => t.Id == id);
-=======
-		return await _db.Teleworks.FindAsync(id);
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 	}
 
 	public async Task AddAsync(Telework entity)
@@ -59,7 +51,6 @@ public class TeleworkRepository : ITeleworkRepository
 			await _db.SaveChangesAsync();
 		}
 	}
-<<<<<<< HEAD
 
     public async Task<bool> HasOverlapAsync(int employeeId, DateTime start, DateTime end)
     {
@@ -83,8 +74,48 @@ public class TeleworkRepository : ITeleworkRepository
             .Distinct()
             .CountAsync();
     }
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
+    public async Task<IEnumerable<Telework>> GetRecentRequestsByEmployeeIdAsync(int employeeId, int count)
+    {
+        return await _db.Teleworks
+            .Where(t => t.EmployeeId == employeeId)
+            .OrderByDescending(t => t.CreatedAt)
+            .Take(count)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Telework>> GetRecentRequestsGlobalAsync(int count)
+    {
+        return await _db.Teleworks
+            .Include(t => t.Employee)
+            .OrderByDescending(t => t.CreatedAt)
+            .Take(count)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Telework>> GetPendingTeleworksByManagerIdAsync(int managerId)
+    {
+        return await _db.Teleworks
+            .Include(t => t.Employee)
+            .Where(t => t.Status == "Pending" && t.Employee.ManagerId == managerId)
+            .OrderBy(t => t.StartDate)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Telework>> GetApprovedTeleworksForDateAsync(DateTime date)
+    {
+        return await _db.Teleworks
+            .Include(t => t.Employee)
+            .Where(t => t.Status == "Approved" 
+                        && t.StartDate <= date 
+                        && t.EndDate >= date)
+            .ToListAsync();
+    }
+
+    public async Task<int> GetTotalTeleworkingCountAsync(DateTime date)
+    {
+        return await _db.Teleworks
+            .CountAsync(t => t.Status == "Approved" && t.StartDate <= date && t.EndDate >= date);
+    }
 }
 
 

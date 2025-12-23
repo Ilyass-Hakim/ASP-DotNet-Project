@@ -1,0 +1,468 @@
+@model PlateformeRHCollaborative.Web.Models.ViewModels.ManagerDashboardVM
+
+@{
+    ViewData["Title"] = "Tableau de Bord Manager";
+    // Layout = "~/Views/Shared/_Layout.cshtml"; // Assumed default
+}
+
+<div class="dashboard-wrapper">
+    <div class="dashboard-container">
+        
+        <!-- Niveau 1 : En-tête -->
+        <div class="dashboard-header text-center">
+            <h1>Tableau de Bord Manager</h1>
+            <p class="subtitle">@Model.Manager.Nom @Model.Manager.FirstName - @Model.Manager.Department</p>
+        </div>
+
+        <!-- Niveau 2 : Cartes de Statistiques (KPI) -->
+        <div class="kpi-cards">
+            <!-- Carte 1 : Membres Équipe -->
+            <div class="kpi-card bg-blue">
+                <div class="kpi-icon"><i class="fas fa-users"></i></div>
+                <div class="kpi-value">@Model.TeamSize</div>
+                <div class="kpi-label">MEMBRES ÉQUIPE</div>
+            </div>
+
+            <!-- Carte 2 : Présents Aujourd'hui -->
+            <div class="kpi-card bg-green">
+                <div class="kpi-icon"><i class="fas fa-check"></i></div>
+                <div class="kpi-value">@Model.PresentCount</div>
+                <div class="kpi-label">PRÉSENTS AUJOURD'HUI</div>
+            </div>
+
+            <!-- Carte 3 : Absents Aujourd'hui -->
+            <div class="kpi-card bg-orange">
+                <div class="kpi-icon"><i class="fas fa-umbrella-beach"></i></div>
+                <div class="kpi-value">@Model.AbsentCount</div>
+                <div class="kpi-label">ABSENTS AUJOURD'HUI</div>
+            </div>
+
+            <!-- Carte 4 : Demandes à Valider -->
+            <div class="kpi-card @(Model.PendingRequestsToValidate > 0 ? "bg-red" : "bg-gray")">
+                <div class="kpi-icon"><i class="fas fa-file-signature"></i></div>
+                <div class="kpi-value">@Model.PendingRequestsToValidate</div>
+                <div class="kpi-label">DEMANDES À VALIDER</div>
+                @if(Model.PendingRequestsToValidate > 0)
+                {
+                    <a asp-controller="Leave" asp-action="Manage" class="kpi-btn">Traiter</a>
+                }
+            </div>
+        </div>
+
+        <!-- Niveau 3 : Planning de la Semaine -->
+        <section class="planning-section">
+            <h2>Planning de la Semaine</h2>
+            <div class="planning-table-container">
+                <table class="planning-table">
+                    <thead>
+                        <tr>
+                            @foreach(var day in Model.WeeklyPlanning)
+                            {
+                                <th>
+                                    <span class="day-name">@day.Date.ToString("dddd", new System.Globalization.CultureInfo("fr-FR"))</span>
+                                    <span class="day-date">@day.Date.Day @day.Date.ToString("MMM", new System.Globalization.CultureInfo("fr-FR"))</span>
+                                </th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach(var day in Model.WeeklyPlanning)
+                            {
+                                <td class="planning-cell">
+                                    <div class="status-container">
+                                        @if(!day.AbsentNames.Any() && !day.TeleworkingNames.Any())
+                                        {
+                                            <div class="status-badge full-team">Tous présents</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="status-badge partial-team">Team @day.PresentCount / @Model.TeamSize</div>
+                                        }
+                                        
+                                        @if(day.AbsentNames.Any())
+                                        {
+                                            <div class="absent-list">
+                                                @foreach(var name in day.AbsentNames)
+                                                {
+                                                    <div class="absent-item" title="Congé"><i class="fas fa-umbrella-beach"></i> @name</div>
+                                                }
+                                            </div>
+                                        }
+
+                                        @if(day.TeleworkingNames.Any())
+                                        {
+                                            <div class="telework-list">
+                                                 @foreach(var name in day.TeleworkingNames)
+                                                {
+                                                    <div class="telework-item" title="Télétravail"><i class="fas fa-laptop-house"></i> @name</div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Niveau 4 : Mon Équipe - Soldes -->
+        <section class="team-soldes-section">
+            <h2>Mon Équipe - Soldes</h2>
+            <div class="soldes-table-container">
+                <table class="soldes-table">
+                    <thead>
+                        <tr>
+                            <th>EMPLOYÉ</th>
+                            <th>POSTE</th>
+                            <th class="text-center">SOLDE CONGÉS</th>
+                            <th class="text-center">STATUT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var emp in Model.TeamBalances)
+                        {
+                            <tr>
+                                <td class="fw-bold">@emp.Name</td>
+                                <td class="text-muted">@emp.Poste</td>
+                                <td class="text-center fw-bold text-primary">@emp.Solde jours</td>
+                                <td class="text-center">
+                                    @if(emp.Solde >= 5)
+                                    {
+                                        <span class="status-pill status-ok"><i class="fas fa-check-circle"></i> OK</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-pill status-low"><i class="fas fa-exclamation-triangle"></i> Bas</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<style>
+    /* Variables & Global */
+    :root {
+        --color-blue: #4F46E5;
+        --color-green: #10B981;
+        --color-orange: #F59E0B;
+        --color-red: #EF4444;
+        --color-gray: #6B7280;
+        --color-bg: #F3F4F6;
+        --color-white: #FFFFFF;
+        --color-text-dark: #1F2937;
+        --color-text-light: #6B7280;
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --radius: 12px;
+    }
+
+    body {
+        background-color: var(--color-bg);
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        color: var(--color-text-dark);
+    }
+
+    .dashboard-wrapper {
+        min-height: 100vh;
+        width: 100%;
+        background-color: var(--color-bg);
+        padding: 40px 20px 60px 20px;
+    }
+
+    .dashboard-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* Header */
+    .dashboard-header {
+        margin-bottom: 50px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--color-text-dark);
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.025em;
+    }
+
+    .dashboard-header .subtitle {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: var(--color-text-light);
+    }
+
+    /* KPI Cards */
+    .kpi-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+
+    .kpi-card {
+        background: var(--color-white);
+        border-radius: var(--radius);
+        padding: 30px 20px;
+        color: white;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 220px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+
+    .kpi-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .kpi-card.bg-blue { background-color: var(--color-blue); }
+    .kpi-card.bg-green { background-color: var(--color-green); }
+    .kpi-card.bg-orange { background-color: var(--color-orange); }
+    .kpi-card.bg-red { background-color: var(--color-red); }
+    .kpi-card.bg-gray { background-color: var(--color-gray); }
+
+    .kpi-icon {
+        font-size: 1.5rem;
+        opacity: 0.8;
+        margin-bottom: 0.5rem;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+
+    .kpi-value {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .kpi-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.9;
+    }
+
+    .kpi-btn {
+        margin-top: 15px;
+        background-color: white;
+        color: var(--color-red);
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.2s;
+    }
+    .kpi-btn:hover {
+        background-color: #f9fafb;
+        color: var(--color-red);
+    }
+
+    /* Sections Shared */
+    section h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--color-text-dark);
+        margin-bottom: 25px;
+        text-align: center;
+        letter-spacing: -0.025em;
+    }
+
+    /* Planning Section */
+    .planning-section {
+        margin-bottom: 60px;
+    }
+
+    .planning-table-container {
+        background: var(--color-white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-md);
+        padding: 20px;
+        overflow-x: auto;
+    }
+
+    .planning-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: fixed;
+    }
+
+    .planning-table th {
+        text-align: center;
+        padding: 15px;
+        background-color: #F8FAFC;
+        border-bottom: 2px solid #E2E8F0;
+        color: var(--color-text-light);
+    }
+    
+    .planning-table th:first-child { border-top-left-radius: 8px; }
+    .planning-table th:last-child { border-top-right-radius: 8px; }
+
+    .day-name {
+        display: block;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+    }
+
+    .day-date {
+        display: block;
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--color-text-dark);
+    }
+
+    .planning-cell {
+        vertical-align: top;
+        padding: 15px;
+        height: 180px; /* Fixed height for consistency */
+        background-color: white;
+        border-right: 1px solid #F3F4F6;
+    }
+    .planning-cell:last-child { border-right: none; }
+
+    .status-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        height: 100%;
+        justify-content: flex-start;
+    }
+
+    .status-badge {
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 6px 10px;
+        border-radius: 6px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .full-team { background-color: #D1FAE5; color: #065F46; } /* Green-100 to Green-800 */
+    .partial-team { background-color: #FEF3C7; color: #92400E; } /* Yellow-100 to Yellow-800 */
+
+    .absent-item, .telework-item {
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 4px 8px;
+        border-radius: 4px;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .absent-item { background-color: #FEE2E2; color: #991B1B; } /* Red-100 to Red-800 */
+    .telework-item { background-color: #DBEAFE; color: #1E40AF; } /* Blue-100 to Blue-800 */
+
+    /* Team Balances Section */
+    .team-soldes-section {
+        margin-bottom: 20px;
+    }
+
+    .soldes-table-container {
+        background: var(--color-white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+    }
+
+    .soldes-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .soldes-table th {
+        background-color: #374151; /* Gray-700 */
+        color: white;
+        padding: 16px 24px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+        letter-spacing: 0.05em;
+        text-align: left;
+    }
+    
+    .soldes-table th.text-center { text-align: center; }
+
+    .soldes-table td {
+        padding: 16px 24px;
+        border-bottom: 1px solid #E5E7EB;
+        color: #111827;
+        font-size: 1rem;
+    }
+
+    .soldes-table tbody tr:nth-child(even) {
+        background-color: #F9FAFB;
+    }
+
+    .soldes-table tbody tr:hover {
+        background-color: #F3F4F6;
+    }
+
+    .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    .status-ok { background-color: #D1FAE5; color: #065F46; }
+    .status-low { background-color: #FEF3C7; color: #B45309; }
+
+    /* Responsive Design */
+    @@media (max-width: 1024px) {
+        .kpi-cards {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .dashboard-header h1 { font-size: 2rem; }
+        
+        .kpi-cards {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .kpi-card { min-height: 180px; }
+        
+        .planning-cell {
+            padding: 10px;
+            min-width: 140px; /* Force scroll for small screens */
+        }
+        
+        .planning-table-container, .soldes-table-container {
+            overflow-x: auto;
+        }
+    }
+</style>

@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 ﻿@using Microsoft.AspNetCore.Identity
 @using PlateformeRHCollaborative.Web.Repositories
 @inject UserManager<IdentityUser> _userManager
 @inject IEmployeeRepository _employeeRepo
 
 <!DOCTYPE html>
-=======
-﻿<!DOCTYPE html>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 <html lang="fr">
 <head>
     <meta charset="utf-8" />
@@ -22,17 +18,10 @@
 
     <!-- Azia CSS -->
     <link rel="stylesheet" href="~/css/azia.min.css" />
-<<<<<<< HEAD
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
     <!-- Font Awesome -->
     <link href="~/lib/fontawesome-free/css/all.min.css" rel="stylesheet" />
-=======
-    <link rel="stylesheet" href="~/css/site.css" />
-
-    <!-- Font Awesome -->
-    <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 
     @RenderSection("Styles", required: false)
     
@@ -44,15 +33,11 @@
 </head>
 <body>
     <div class="az-header">
-        <div class="container d-flex justify-content-between align-items-center">
+        <div class="container-fluid px-4 d-flex flex-nowrap justify-content-between align-items-center">
             <div class="az-header-left">
-<<<<<<< HEAD
                 <a asp-controller="Home" asp-action="Index" class="az-logo">
                     <img src="~/img/collabrh-logo.svg" alt="CollabRH Logo" style="height: 160px; width: auto;" />
                 </a>
-=======
-                <a asp-controller="Home" asp-action="Index" class="az-logo">Collab<span>RH</span></a>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
             </div>
 
             <div class="az-header-menu">
@@ -62,13 +47,18 @@
                         <li class="nav-item">
                             <a asp-controller="Home" asp-action="Index" class="nav-link">Accueil</a>
                         </li>
+                        @if (User.IsInRole("Manager") || User.IsInRole("RH") || User.IsInRole("Directeur"))
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Dashboard" asp-action="Index" class="nav-link">Dashboard</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a asp-controller="Leave" asp-action="Index" class="nav-link">Congés</a>
                         </li>
                         <li class="nav-item">
                             <a asp-controller="Telework" asp-action="Index" class="nav-link">Télétravail</a>
                         </li>
-<<<<<<< HEAD
                         @if (!User.IsInRole("Directeur"))
                         {
                             <li class="nav-item">
@@ -76,12 +66,6 @@
                             </li>
                         }
                         @if (User.IsInRole("Manager") || User.IsInRole("Directeur"))
-=======
-                        <li class="nav-item">
-                            <a asp-controller="Document" asp-action="Index" class="nav-link">Documents RH</a>
-                        </li>
-                        @if (User.IsInRole("Manager"))
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                         {
                             <li class="nav-item">
                                 <a asp-controller="Requests" asp-action="Index" class="nav-link">Demandes</a>
@@ -89,9 +73,7 @@
                         }
                         @if (User.IsInRole("RH"))
                         {
-                            <li class="nav-item">
-                                <a asp-controller="Dashboard" asp-action="Index" class="nav-link">Tableau de bord RH</a>
-                            </li>
+
                             <li class="nav-item">
                                 <a asp-controller="Account" asp-action="Register" class="nav-link">Créer un compte</a>
                             </li>
@@ -115,15 +97,11 @@
                     displayName = displayName.Length > 0 ? char.ToUpper(displayName[0]) + displayName.Substring(1).ToLower() : "U";
                     var userInitial = displayName.Length > 0 ? displayName[0].ToString().ToUpper() : "U";
                     var roleBadge = "";
-<<<<<<< HEAD
                     if (User.IsInRole("Directeur"))
                     {
                         roleBadge = "Directeur";
                     }
                     else if (User.IsInRole("RH"))
-=======
-                    if (User.IsInRole("RH"))
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     {
                         roleBadge = "RH";
                     }
@@ -135,7 +113,6 @@
                     {
                         roleBadge = "Employe";
                     }
-<<<<<<< HEAD
 
                     // Fetch Employee Solde
                     string soldeDisplay = "";
@@ -148,35 +125,19 @@
 
                     <div class="dropdown">
                         <button class="btn btn-link text-decoration-none user-menu-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-=======
-                    <div class="dropdown">
-                        <button class="btn btn-link text-decoration-none user-menu-btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                             <div class="user-avatar">
                                 <span class="user-initial">@userInitial</span>
                             </div>
                             <span class="user-name-display">@displayName</span>
                             @if (!string.IsNullOrEmpty(roleBadge))
                             {
-<<<<<<< HEAD
                                 <span class="badge user-role-badge ml-2">@roleBadge</span>
-                            }
-                            @if (!string.IsNullOrEmpty(soldeDisplay))
-                            {
-                                <span class="badge bg-success ml-2" title="Solde de congés disponible"><i class="fas fa-umbrella-beach"></i> @soldeDisplay</span>
-=======
-                                <span class="badge user-role-badge ms-2">@roleBadge</span>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                             }
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li class="dropdown-header">
                                 <div class="d-flex align-items-center">
-<<<<<<< HEAD
                                     <div class="user-avatar user-avatar-small mr-2">
-=======
-                                    <div class="user-avatar user-avatar-small me-2">
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                         <span class="user-initial">@userInitial</span>
                                     </div>
                                     <div>
@@ -186,7 +147,6 @@
                                 </div>
                             </li>
                             <li><hr class="dropdown-divider"></li>
-<<<<<<< HEAD
                             <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index"><i class="fas fa-user"></i> Mon profil</a></li>
                             <li><a class="dropdown-item" asp-controller="Settings" asp-action="Index"><i class="fas fa-cog"></i> Paramètres</a></li>
                             <li><hr class="dropdown-divider"></li>
@@ -198,22 +158,12 @@
                                     </button>
                                 </form>
                             </li>
-=======
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Mon profil</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Paramètres</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" asp-controller="Account" asp-action="Logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                         </ul>
                     </div>
                 }
                 else
                 {
-<<<<<<< HEAD
                     <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-sm ml-3">Se connecter</a>
-=======
-                    <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-sm ms-3">Se connecter</a>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                 }
             </div>
         </div>
@@ -230,13 +180,8 @@
     </div>
 
     <!-- JS -->
-<<<<<<< HEAD
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-=======
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 
     <!-- Azia JS -->
     <script src="~/js/azia.js"></script>

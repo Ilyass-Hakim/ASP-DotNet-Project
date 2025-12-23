@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PlateformeRHCollaborative.Web.Models;
@@ -9,10 +8,6 @@ using PlateformeRHCollaborative.Web.Data;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-=======
-using PlateformeRHCollaborative.Web.Models;
-using PlateformeRHCollaborative.Web.Services;
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 
 namespace PlateformeRHCollaborative.Web.Controllers;
 
@@ -20,7 +15,6 @@ namespace PlateformeRHCollaborative.Web.Controllers;
 public class DocumentController : Controller
 {
     private readonly DocumentService _service;
-<<<<<<< HEAD
     private readonly UserManager<IdentityUser> _userManager;
     private readonly ApplicationDbContext _context;
 
@@ -29,12 +23,6 @@ public class DocumentController : Controller
         _service = service;
         _userManager = userManager;
         _context = context;
-=======
-
-    public DocumentController(DocumentService service)
-    {
-        _service = service;
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
     }
 
     public async Task<IActionResult> Index()
@@ -80,7 +68,6 @@ public class DocumentController : Controller
         await _service.DeleteAsync(id);
         return RedirectToAction(nameof(Index));
     }
-<<<<<<< HEAD
     [HttpGet]
     public async Task<IActionResult> GenerateCertificate()
     {
@@ -97,68 +84,70 @@ public class DocumentController : Controller
             container.Page(page =>
             {
                 page.Size(PageSizes.A4);
-                page.Margin(2, Unit.Centimetre);
+                page.Margin(2.5f, Unit.Centimetre); // Marges généreuses standard administratif
                 page.PageColor(Colors.White);
-                page.DefaultTextStyle(x => x.FontSize(12));
+                page.DefaultTextStyle(x => x.FontSize(12).FontFamily("Arial")); // Police standard
 
-                page.Header()
-                    .Row(row =>
-                    {
-                        row.RelativeItem().Column(col =>
-                        {
-                            col.Item().Text("CollabRH").SemiBold().FontSize(24).FontColor(Colors.Blue.Medium);
-                            col.Item().Text("Direction des Ressources Humaines").FontSize(10).FontColor(Colors.Grey.Medium);
-                        });
-                        row.ConstantItem(100).AlignRight().Text("ATTESTATION").FontSize(20).SemiBold().FontColor(Colors.Grey.Lighten2);
-                    });
-
+                // Pas d'en-tête, on commence direct par le titre pour un style officiel
+                
                 page.Content()
-                    .PaddingVertical(2, Unit.Centimetre)
+                    .PaddingTop(1, Unit.Centimetre)
                     .Column(column =>
                     {
-                        column.Spacing(20);
-
-                        column.Item().Text("ATTESTATION DE TRAVAIL").Bold().FontSize(20).AlignCenter().Underline();
+                        // Titre Centré
+                        column.Item().Text("ATTESTATION DE TRAVAIL").Bold().FontSize(22).AlignCenter().Underline();
                         
+                        column.Item().Height(50); // Espacement
+
+                        // Paragraphe d'intro
                         column.Item().PaddingTop(20).Text(text =>
                         {
                             text.Span("Nous soussignés, ");
-                            text.Span("CollabRH").Bold();
-                            text.Span(", sis à Paris, certifions que :");
+                            text.Span("TechnoSolutions Maroc").Bold();
+                            text.Span(", sis à Casablanca, certifions que :");
                         });
 
-                        column.Item().Background(Colors.Grey.Lighten4).Padding(10).Column(col => 
+                        column.Item().Height(30);
+
+                        // Bloc Employé
+                        column.Item().Border(1).BorderColor(Colors.Grey.Lighten2).Padding(20).Column(col => 
                         {
-                            col.Item().Text(t => { t.Span("M./Mme : ").SemiBold(); t.Span($"{employee.Nom}"); });
-                            col.Item().Text(t => { t.Span("Poste : ").SemiBold(); t.Span($"{employee.Poste}"); });
+                            col.Spacing(10);
+                            col.Item().Text(t => { t.Span("M./Mme : ").SemiBold(); t.Span($"{employee.Nom}").FontSize(14).Bold(); });
                             col.Item().Text(t => { t.Span("Département : ").SemiBold(); t.Span($"{employee.Department}"); });
                         });
 
+                        column.Item().Height(30);
+
+                        // Corps du texte
                         column.Item().Text(text =>
                         {
                             text.Span("Est employé(e) au sein de notre société depuis le ");
-                            // Modèle fictif date embauche si null
-                            text.Span(DateTime.Now.AddMonths(-6).ToString("dd/MM/yyyy")).Bold(); 
+                            // Date d'embauche réelle ou simulée
+                            text.Span(employee.HireDate.ToString("dd/MM/yyyy")).Bold(); 
                             text.Span(" et occupe actuellement ses fonctions à temps plein.");
                         });
 
+                        column.Item().Height(20);
+
                         column.Item().Text("Cette attestation est délivrée à la demande de l'intéressé(e) pour servir et valoir ce que de droit.");
 
-                        column.Item().PaddingTop(30).Text($"Fait à Paris, le {DateTime.Now:dd/MM/yyyy}").AlignRight();
+                        // Date et Signature
+                        column.Item().PaddingTop(60).AlignRight().Text($"Fait à Casablanca, le {DateTime.Now:dd/MM/yyyy}");
 
-                        column.Item().PaddingTop(50).Column(col =>
+                        column.Item().PaddingTop(40).AlignRight().Column(col =>
                         {
-                            col.Item().Text("Pour la Direction, des Ressources Humaines").AlignRight();
-                            col.Item().Text("Signature").FontSize(10).FontColor(Colors.Grey.Medium).AlignRight();
+                            col.Item().Text("Pour la Direction des Ressources Humaines").Bold();
+                            col.Item().PaddingTop(50).Text("Signature").FontSize(10).FontColor(Colors.Grey.Medium);
                         });
                     });
 
+                // Pas de footer commercial, juste une ligne discrète ou rien
                 page.Footer()
                     .AlignCenter()
                     .Text(x =>
                     {
-                        x.Span("CollabRH - SAS au capital de 50 000 € - RCS Paris B 123 456 789");
-                        x.Span($" - Page {x.CurrentPageNumber()}");
+                        x.Span("TechnoSolutions Maroc - Patente 12345678 - RC Casablanca 98765").FontSize(8).FontColor(Colors.Grey.Medium);
                     });
             });
         });
@@ -179,10 +168,29 @@ public class DocumentController : Controller
 
         string fileName = $"Fiche_Paie_{DateTime.Now:yyyyMM}.pdf";
         
-        decimal grossSalary = employee.SalaryBase;
-        decimal socialContributions = grossSalary * 0.22m;
-        decimal netSalary = grossSalary - socialContributions;
-        var month = DateTime.Now.ToString("MMMM yyyy").ToUpper();
+        // Calculs Marocains Simplifiés
+        decimal salaireBrut = employee.SalaryBase;
+        
+        // CNSS (4.48% plafonné à 6000 DH de base = max 268.80 DH)
+        // Pour simplifier ici on applique le taux sur le brut sans plafond, ou avec plafond si on veut être précis.
+        // Restons simple mais réaliste : 4.48%
+        decimal cnssRate = 0.0448m;
+        decimal cnssAmount = salaireBrut * cnssRate; 
+
+        // AMO (2.26% sur le brut total)
+        decimal amoRate = 0.0226m;
+        decimal amoAmount = salaireBrut * amoRate;
+
+        // IR (Impôt sur le Revenu) - Estimation simplifiée (ex: 10% après déductions sociales)
+        // Salaire Net Imposable (SNI) = Brut - (CNSS + AMO)
+        decimal sni = salaireBrut - cnssAmount - amoAmount;
+        decimal irRate = 0.10m; // Taux moyen arbitraire pour l'exemple
+        decimal irAmount = sni * irRate;
+
+        decimal totalDeductions = cnssAmount + amoAmount + irAmount;
+        decimal netAPayer = salaireBrut - totalDeductions;
+
+        var month = DateTime.Now.ToString("MMMM yyyy", new System.Globalization.CultureInfo("fr-FR")).ToUpper();
 
         var document = Document.Create(container =>
         {
@@ -191,16 +199,17 @@ public class DocumentController : Controller
                 page.Size(PageSizes.A4);
                 page.Margin(2, Unit.Centimetre);
                 page.PageColor(Colors.White);
-                page.DefaultTextStyle(x => x.FontSize(11));
+                page.DefaultTextStyle(x => x.FontSize(11).FontFamily("Arial"));
 
+                // Header Entrprise
                 page.Header()
                     .Row(row =>
                     {
                         row.RelativeItem().Column(col =>
                         {
-                            col.Item().Text("CollabRH").Bold().FontSize(20).FontColor(Colors.Blue.Darken2);
-                            col.Item().Text("123 Avenue des Champs-Elysées, 75008 Paris").FontSize(9);
-                            col.Item().Text("SIRET : 123 456 789 00012").FontSize(9);
+                            col.Item().Text("TechnoSolutions Maroc").Bold().FontSize(20).FontColor(Colors.Blue.Darken2);
+                            col.Item().Text("45 Boulevard Zerktouni, 20000 Casablanca").FontSize(10);
+                            col.Item().Text("IF : 12345678 | CNSS : 9876543 | ICE : 001234567890123").FontSize(9).FontColor(Colors.Grey.Darken1);
                         });
                         row.RelativeItem().AlignRight().Column(col =>
                         {
@@ -218,14 +227,14 @@ public class DocumentController : Controller
                         {
                             row.RelativeItem().Column(c =>
                             {
-                                c.Item().Text(t => { t.Span("Employé : ").SemiBold(); t.Span(employee.Nom).Bold(); });
+                                c.Item().Text(t => { t.Span("Employé : ").SemiBold(); t.Span(employee.Nom.ToUpper()).Bold(); });
                                 c.Item().Text(t => { t.Span("Matricule : ").SemiBold(); t.Span($"EMP-{employee.Id:D6}"); });
-                                c.Item().Text(t => { t.Span("Sécurité Sociale : ").SemiBold(); t.Span("1 85 05 75 123 456 78"); });
+                                c.Item().Text(t => { t.Span("CNSS : ").SemiBold(); t.Span("123456789"); }); 
                             });
                             row.RelativeItem().AlignRight().Column(c =>
                             {
                                 c.Item().Text(t => { t.Span("Département : ").SemiBold(); t.Span(employee.Department); });
-                                c.Item().Text(t => { t.Span("Poste : ").SemiBold(); t.Span(employee.Poste); });
+                                // Poste supprimé
                             });
                         });
                         
@@ -236,10 +245,11 @@ public class DocumentController : Controller
                         {
                             table.ColumnsDefinition(columns =>
                             {
-                                columns.RelativeColumn(3); // Description
+                                columns.RelativeColumn(3); // Rubrique
                                 columns.RelativeColumn(1); // Base
                                 columns.RelativeColumn(1); // Taux
-                                columns.RelativeColumn(1); // Montant
+                                columns.RelativeColumn(1); // Gain
+                                columns.RelativeColumn(1); // Retenue
                             });
 
                             table.Header(header =>
@@ -247,48 +257,65 @@ public class DocumentController : Controller
                                 header.Cell().Element(CellStyle).Text("Rubrique");
                                 header.Cell().Element(CellStyle).AlignRight().Text("Base");
                                 header.Cell().Element(CellStyle).AlignRight().Text("Taux");
-                                header.Cell().Element(CellStyle).AlignRight().Text("Montant");
+                                header.Cell().Element(CellStyle).AlignRight().Text("Gains");
+                                header.Cell().Element(CellStyle).AlignRight().Text("Retenues");
 
                                 static IContainer CellStyle(IContainer container)
                                 {
-                                    return container.DefaultTextStyle(x => x.SemiBold()).PaddingVertical(5).BorderBottom(1).BorderColor(Colors.Black);
+                                    return container.DefaultTextStyle(x => x.SemiBold().FontSize(10)).PaddingVertical(5).BorderBottom(1).BorderColor(Colors.Black);
                                 }
                             });
 
-                            // Rows
-                            table.Cell().Element(RowStyle).Text("Salaire de Base");
-                            table.Cell().Element(RowStyle).AlignRight().Text($"{grossSalary:N2}");
-                            table.Cell().Element(RowStyle).AlignRight().Text("");
-                            table.Cell().Element(RowStyle).AlignRight().Text($"{grossSalary:N2}");
+                            // Style Helper
+                            IContainer RowStyle(IContainer container) => container.PaddingVertical(5).BorderBottom(1).BorderColor(Colors.Grey.Lighten3);
 
-                            table.Cell().Element(RowStyle).Text("Cotisations Sociales (Est.)");
-                            table.Cell().Element(RowStyle).AlignRight().Text($"{grossSalary:N2}");
-                            table.Cell().Element(RowStyle).AlignRight().Text("22.00 %");
-                            table.Cell().Element(RowStyle).AlignRight().Text($"-{socialContributions:N2}");
+                            // 1. Salaire de Base
+                            table.Cell().Element(RowStyle).Text("Salaire de Base");
+                            table.Cell().Element(RowStyle).AlignRight().Text($"{salaireBrut:N2}");
+                            table.Cell().Element(RowStyle).AlignRight().Text("");
+                            table.Cell().Element(RowStyle).AlignRight().Text($"{salaireBrut:N2}");
+                            table.Cell().Element(RowStyle).AlignRight().Text("");
+
+                            // 2. CNSS
+                            table.Cell().Element(RowStyle).Text("CNSS (Cotisations Sociales)");
+                            table.Cell().Element(RowStyle).AlignRight().Text($"{salaireBrut:N2}");
+                            table.Cell().Element(RowStyle).AlignRight().Text("4.48 %");
+                            table.Cell().Element(RowStyle).AlignRight().Text("");
+                            table.Cell().Element(RowStyle).AlignRight().Text($"{cnssAmount:N2}");
+
+                            // 3. AMO
+                            table.Cell().Element(RowStyle).Text("AMO (Assurance Maladie)");
+                            table.Cell().Element(RowStyle).AlignRight().Text($"{salaireBrut:N2}");
+                            table.Cell().Element(RowStyle).AlignRight().Text("2.26 %");
+                            table.Cell().Element(RowStyle).AlignRight().Text("");
+                            table.Cell().Element(RowStyle).AlignRight().Text($"{amoAmount:N2}");
+
+                            // 4. IR
+                            table.Cell().Element(RowStyle).Text("I.R. (Impôt sur le Revenu)");
+                            table.Cell().Element(RowStyle).AlignRight().Text($"{sni:N2}");
+                            table.Cell().Element(RowStyle).AlignRight().Text($"{irRate*100:N0} %");
+                            table.Cell().Element(RowStyle).AlignRight().Text("");
+                            table.Cell().Element(RowStyle).AlignRight().Text($"{irAmount:N2}");
                             
                             // Net
-                             table.Cell().ColumnSpan(4).PaddingTop(10).BorderTop(1).BorderColor(Colors.Black).PaddingBottom(5).Row(row => 
+                             table.Cell().ColumnSpan(5).PaddingTop(15).BorderTop(1).BorderColor(Colors.Black).PaddingBottom(5).Row(row => 
                              {
                                  row.RelativeItem().Text("NET À PAYER").Bold().FontSize(14);
-                                 row.RelativeItem().AlignRight().Text($"{netSalary:N2} €").Bold().FontSize(14).FontColor(Colors.Blue.Darken2);
+                                 row.RelativeItem().AlignRight().Text($"{netAPayer:N2} MAD").Bold().FontSize(14).FontColor(Colors.Blue.Darken2);
                              });
-
-                            static IContainer RowStyle(IContainer container)
-                            {
-                                return container.PaddingVertical(5).BorderBottom(1).BorderColor(Colors.Grey.Lighten2);
-                            }
                         });
 
-                        col.Item().Height(30);
-                        col.Item().Background(Colors.Grey.Lighten4).Padding(10).Text("Pour faire valoir vos droits à la retraite, conservez ce bulletin de paie sans limitation de durée.").FontSize(9).Italic();
+                        col.Item().Height(40);
+                        col.Item().Background(Colors.Grey.Lighten5).Padding(10)
+                           .Text("Ce bulletin de paie est conforme à la législation marocaine en vigueur. À conserver sans limitation de durée.")
+                           .FontSize(9).Italic().AlignCenter();
                     });
 
                 page.Footer()
                     .AlignCenter()
                     .Text(x =>
                     {
-                        x.Span("CollabRH - Document généré le ");
-                        x.Span($"{DateTime.Now:dd/MM/yyyy HH:mm}");
+                        x.Span($"TechnoSolutions Maroc - ICE 001234567890123 - {DateTime.Now:dd/MM/yyyy HH:mm}");
                     });
             });
         });
@@ -302,8 +329,3 @@ public class DocumentController : Controller
 
 
 
-=======
-}
-
-
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d

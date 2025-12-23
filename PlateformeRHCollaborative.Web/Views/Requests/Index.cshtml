@@ -52,11 +52,7 @@
                                     @foreach (var leave in (List<PlateformeRHCollaborative.Web.Models.Leave>)ViewBag.PendingLeaves)
                                     {
                                         <tr>
-<<<<<<< HEAD
                                             <td>@(leave.Employee?.Nom ?? leave.Employee?.Email ?? "N/A")</td>
-=======
-                                            <td>@(leave.Employee?.Email ?? "N/A")</td>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                             <td>@leave.StartDate.ToString("dd/MM/yyyy")</td>
                                             <td>@leave.EndDate.ToString("dd/MM/yyyy")</td>
                                             <td>@leave.Reason</td>
@@ -69,7 +65,6 @@
                                                             <i class="fas fa-check"></i> Accepter
                                                         </button>
                                                     </form>
-<<<<<<< HEAD
                                                     <form method="post" asp-controller="Requests" asp-action="RejectLeave" class="d-inline">
                                                         @Html.AntiForgeryToken()
                                                         <input type="hidden" name="id" value="@leave.Id" />
@@ -78,59 +73,16 @@
                                                             <i class="fas fa-times"></i> Refuser
                                                         </button>
                                                     </form>
-=======
-                                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#rejectLeaveModal@(leave.Id)">
-                                                        <i class="fas fa-times"></i> Refuser
-                                                    </button>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                                 </div>
                                             </td>
                                         </tr>
 
-<<<<<<< HEAD
-=======
-                                        <!-- Modal pour refus de congé -->
-                                        <div class="modal fade" id="rejectLeaveModal@(leave.Id)" tabindex="-1">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Refuser la demande de congé</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                    </div>
-                                                    <form asp-action="RejectLeave" method="post">
-                                                        <div class="modal-body">
-                                                            <input type="hidden" name="id" value="@leave.Id" />
-                                                            <div class="mb-3">
-                                                                <label for="rejectionReason@(leave.Id)" class="form-label">
-                                                                    Motif du refus <span class="text-danger">*</span>
-                                                                </label>
-                                                                <textarea 
-                                                                    id="rejectionReason@(leave.Id)" 
-                                                                    name="rejectionReason" 
-                                                                    class="form-control" 
-                                                                    rows="3" 
-                                                                    required
-                                                                    placeholder="Veuillez indiquer le motif du refus..."></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                            <button type="submit" class="btn btn-danger">Confirmer le refus</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                     }
                                 </tbody>
                             </table>
                         </div>
-<<<<<<< HEAD
                         
 
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     }
                     else
                     {
@@ -165,11 +117,7 @@
                                     @foreach (var telework in (List<PlateformeRHCollaborative.Web.Models.Telework>)ViewBag.PendingTeleworks)
                                     {
                                         <tr>
-<<<<<<< HEAD
                                             <td>@(telework.Employee?.Nom ?? telework.Employee?.Email ?? "N/A")</td>
-=======
-                                            <td>@(telework.Employee?.Email ?? "N/A")</td>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                             <td>@telework.StartDate.ToString("dd/MM/yyyy")</td>
                                             <td>@telework.EndDate.ToString("dd/MM/yyyy")</td>
                                             <td>@(telework.Motif ?? "N/A")</td>
@@ -182,7 +130,6 @@
                                                             <i class="fas fa-check"></i> Accepter
                                                         </button>
                                                     </form>
-<<<<<<< HEAD
                                                     <form method="post" asp-controller="Requests" asp-action="RejectTelework" class="d-inline">
                                                         @Html.AntiForgeryToken()
                                                         <input type="hidden" name="id" value="@telework.Id" />
@@ -191,59 +138,16 @@
                                                             <i class="fas fa-times"></i> Refuser
                                                         </button>
                                                     </form>
-=======
-                                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#rejectTeleworkModal@(telework.Id)">
-                                                        <i class="fas fa-times"></i> Refuser
-                                                    </button>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                                 </div>
                                             </td>
                                         </tr>
 
-<<<<<<< HEAD
-=======
-                                        <!-- Modal pour refus de télétravail -->
-                                        <div class="modal fade" id="rejectTeleworkModal@(telework.Id)" tabindex="-1">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Refuser la demande de télétravail</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                    </div>
-                                                    <form asp-action="RejectTelework" method="post">
-                                                        <div class="modal-body">
-                                                            <input type="hidden" name="id" value="@telework.Id" />
-                                                            <div class="mb-3">
-                                                                <label for="rejectionReason@(telework.Id)" class="form-label">
-                                                                    Motif du refus <span class="text-danger">*</span>
-                                                                </label>
-                                                                <textarea 
-                                                                    id="rejectionReason@(telework.Id)" 
-                                                                    name="rejectionReason" 
-                                                                    class="form-control" 
-                                                                    rows="3" 
-                                                                    required
-                                                                    placeholder="Veuillez indiquer le motif du refus..."></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                            <button type="submit" class="btn btn-danger">Confirmer le refus</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                                     }
                                 </tbody>
                             </table>
                         </div>
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
                     }
                     else
                     {

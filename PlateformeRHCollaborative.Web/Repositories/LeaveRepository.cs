@@ -15,27 +15,19 @@ public class LeaveRepository : ILeaveRepository
 
 	public async Task<IEnumerable<Leave>> GetAllAsync()
 	{
-<<<<<<< HEAD
 		// Charger également l'employé lié pour permettre l'affichage du nom / email
 		return await _db.Leaves
 			.Include(l => l.Employee)
 			.AsNoTracking()
 			.ToListAsync();
-=======
-		return await _db.Leaves.AsNoTracking().ToListAsync();
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 	}
 
 	public async Task<Leave?> GetByIdAsync(int id)
 	{
-<<<<<<< HEAD
 		// Inclure systématiquement l'employé pour les traitements métier côté manager
 		return await _db.Leaves
 			.Include(l => l.Employee)
 			.FirstOrDefaultAsync(l => l.Id == id);
-=======
-		return await _db.Leaves.FindAsync(id);
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 	}
 
 	public async Task AddAsync(Leave entity)
@@ -59,7 +51,6 @@ public class LeaveRepository : ILeaveRepository
 			await _db.SaveChangesAsync();
 		}
 	}
-<<<<<<< HEAD
 
     public async Task<bool> HasOverlapAsync(int employeeId, DateTime start, DateTime end)
     {
@@ -92,8 +83,85 @@ public class LeaveRepository : ILeaveRepository
             .OrderByDescending(l => l.StartDate)
             .ToListAsync();
     }
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
+    public async Task<IEnumerable<Leave>> GetLeavesByStatusAsync(string status)
+    {
+        return await _db.Leaves
+            .Include(l => l.Employee)
+            .Where(l => l.Status == status)
+            .OrderByDescending(l => l.CreatedAt)
+            .ToListAsync();
+    }
+
+    public async Task<int> GetPendingCountAsync(int? managerId = null)
+    {
+        var query = _db.Leaves.Where(l => l.Status == "Pending");
+        
+        if (managerId.HasValue)
+        {
+            // Pending requests for this manager's team
+            // Assuming workflow: Employee -> Manager (Validator)
+            // But we need to look at Employee.ManagerId
+            query = query.Where(l => l.Employee.ManagerId == managerId.Value);
+        }
+
+        return await query.CountAsync();
+    }
+
+    public async Task<int> GetApprovedCountAsync()
+    {
+        return await _db.Leaves.CountAsync(l => l.Status == "Approved");
+    }
+
+    public async Task<int> GetTotalDaysTakenAsync()
+    {
+        // Approximation: Sum of durations is complex with business days logic in SQL
+        // Returning count of requests for now, or let service calculate.
+        // Better: Fetch approved leaves this year and sum
+        var currentYear = DateTime.Now.Year;
+        // This logic is better handled in service with business days calc, 
+        // but for a simple "Global Days Taken" metric we can sum (EndDate - StartDate).Days + 1
+        // Simplified SQL sum:
+        return await _db.Leaves
+            .Where(l => l.Status == "Approved" && l.StartDate.Year == currentYear)
+            .SumAsync(l => EF.Functions.DateDiffDay(l.StartDate, l.EndDate) + 1);
+    }
+
+    public async Task<IEnumerable<Leave>> GetRecentRequestsByEmployeeIdAsync(int employeeId, int count)
+    {
+        return await _db.Leaves
+            .Where(l => l.EmployeeId == employeeId)
+            .OrderByDescending(l => l.CreatedAt)
+            .Take(count)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Leave>> GetRecentRequestsGlobalAsync(int count)
+    {
+        return await _db.Leaves
+            .Include(l => l.Employee)
+            .OrderByDescending(l => l.CreatedAt)
+            .Take(count)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Leave>> GetPendingLeavesByManagerIdAsync(int managerId)
+    {
+        return await _db.Leaves
+            .Include(l => l.Employee)
+            .Where(l => l.Status == "Pending" && l.Employee.ManagerId == managerId)
+            .OrderBy(l => l.StartDate)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Leave>> GetApprovedLeavesForDateAsync(DateTime date)
+    {
+        return await _db.Leaves
+            .Include(l => l.Employee)
+            .Where(l => l.Status == "Approved" 
+                        && l.StartDate <= date 
+                        && l.EndDate >= date)
+            .ToListAsync();
+    }
 }
 
 

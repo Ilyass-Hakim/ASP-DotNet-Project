@@ -64,19 +64,15 @@ public class AccountController : Controller
     /// <summary>
     /// Redirige l'utilisateur vers le dashboard approprié selon son rôle
     /// </summary>
-<<<<<<< HEAD
     /// <summary>
     /// Redirige l'utilisateur vers le dashboard approprié selon son rôle
     /// </summary>
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
     private async Task<IActionResult> RedirectToRoleDashboardAsync(IdentityUser user)
     {
         // Récupérer les rôles de l'utilisateur
         var userRoles = await _userManager.GetRolesAsync(user);
         
         // Redirection directe selon le rôle - ignorer returnUrl comme demandé
-<<<<<<< HEAD
         if (userRoles.Contains("Directeur"))
         {
             return Redirect("/Manager/Home"); // Le Directeur utilise le même dashboard que les managers pour l'instant ou un spécifique si besoin
@@ -84,9 +80,6 @@ public class AccountController : Controller
             // Il agit comme un super-manager.
         }
         else if (userRoles.Contains("RH"))
-=======
-        if (userRoles.Contains("RH"))
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
         {
             return Redirect("/RH/Home");
         }
@@ -133,30 +126,7 @@ public class AccountController : Controller
         
         if (result.Succeeded)
         {
-<<<<<<< HEAD
             return await RedirectToRoleDashboardAsync(user);
-=======
-            // Ignorer le returnUrl comme demandé et rediriger directement selon le rôle
-            // Récupérer les rôles AVANT la redirection pour éviter Access Denied
-            var userRoles = await _userManager.GetRolesAsync(user);
-            
-            // Redirection immédiate vers le dashboard selon le rôle
-            if (userRoles.Contains("RH"))
-            {
-                return Redirect("/RH/Home");
-            }
-            else if (userRoles.Contains("Manager"))
-            {
-                return Redirect("/Manager/Home");
-            }
-            else if (userRoles.Contains("Employe"))
-            {
-                return Redirect("/Employe/Home");
-            }
-            
-            // Par défaut si aucun rôle trouvé
-            return Redirect("/Home/Index");
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
         }
         
         if (result.IsLockedOut)
@@ -176,10 +146,7 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Register()
     {
-<<<<<<< HEAD
         ViewBag.Departments = new List<string> { "IT", "Marketing", "Comptabilité", "Production", "Commercial", "RH", "Direction" };
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
         return View();
     }
 
@@ -188,15 +155,10 @@ public class AccountController : Controller
     /// </summary>
     [Authorize(Roles = "RH")]
     [HttpPost]
-<<<<<<< HEAD
     public async Task<IActionResult> Register(string email, string password, string confirmPassword, string role, string department)
     {
         ViewBag.Departments = new List<string> { "IT", "Marketing", "Comptabilité", "Production", "Commercial", "RH", "Direction" };
 
-=======
-    public async Task<IActionResult> Register(string email, string password, string confirmPassword, string role)
-    {
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
         // Validation des champs
         if (string.IsNullOrWhiteSpace(email))
         {
@@ -217,15 +179,9 @@ public class AccountController : Controller
         }
 
         // Validation du rôle
-<<<<<<< HEAD
         if (string.IsNullOrWhiteSpace(role) || (role != "Employe" && role != "Manager" && role != "RH" && role != "Directeur"))
         {
             ViewBag.ErrorMessage = "Veuillez sélectionner un rôle valide.";
-=======
-        if (string.IsNullOrWhiteSpace(role) || (role != "Employe" && role != "Manager" && role != "RH"))
-        {
-            ViewBag.ErrorMessage = "Veuillez sélectionner un rôle valide (Employé, Manager ou RH).";
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
             return View();
         }
 
@@ -240,11 +196,7 @@ public class AccountController : Controller
         // S'assurer que le rôle existe
         await EnsureRoleExistsAsync(role);
 
-<<<<<<< HEAD
         // Création de l'utilisateur Identity
-=======
-        // Création de l'utilisateur
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
         var user = new IdentityUser 
         { 
             UserName = email, 
@@ -258,7 +210,6 @@ public class AccountController : Controller
             // Assigner le rôle sélectionné
             await _userManager.AddToRoleAsync(user, role);
 
-<<<<<<< HEAD
             // Logique d'assignation du Manager et Département
             int? managerId = null;
 
@@ -292,39 +243,25 @@ public class AccountController : Controller
                 managerId = departmentManager?.Id;
             }
 
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
             // Créer automatiquement l'enregistrement Employee correspondant
             var employee = new Employee
             {
                 UserId = user.Id,
                 Email = email,
                 Nom = ExtractNameFromEmail(email),
-<<<<<<< HEAD
                 Poste = "À définir", 
                 Role = role,
                 Department = department ?? "Non assigné",
                 ManagerId = managerId,
                 SoldeConges = 25
-=======
-                Poste = "À définir", // Valeur par défaut, à modifier par RH plus tard si nécessaire
-                Role = role,
-                SoldeConges = 0
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
             };
 
             _context.Employees.Add(employee);
             await _context.SaveChangesAsync();
 
-<<<<<<< HEAD
             // Message de succès avec détails
             string managerInfo = managerId.HasValue ? "Manager assigné automatiquement." : (role == "Directeur" ? "Compte Directeur (pas de manager)." : "ATTENTION: Aucun manager trouvé pour ce poste !");
             ViewBag.SuccessMessage = $"Compte créé avec succès pour {email} ({role} - {department}). {managerInfo}";
-=======
-            // Ne pas connecter automatiquement - seul RH a créé le compte
-            // Redirection vers la page de création avec message de succès
-            ViewBag.SuccessMessage = $"Compte créé avec succès pour {email} avec le rôle {role}.";
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
             return View();
         }
 
@@ -335,22 +272,11 @@ public class AccountController : Controller
     }
 
     [Authorize]
-<<<<<<< HEAD
     [HttpPost]
     [ValidateAntiForgeryToken]
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
         return RedirectToAction("Index", "Home");
     }
 }
-<<<<<<< HEAD
-=======
-
-
-
-
-
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d

@@ -4,7 +4,6 @@ public class Employee
 {
     public int Id { get; set; }
     public string UserId { get; set; } = string.Empty;
-<<<<<<< HEAD
     public string Nom { get; set; } = string.Empty; // Legacy Display Name or Full Name
     
     // Detailed Profile Info
@@ -17,14 +16,10 @@ public class Employee
 
     // Professional Info
     public string Matricule { get; set; } = string.Empty; // Employee ID
-=======
-    public string Nom { get; set; } = string.Empty;
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
     public string Poste { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public int SoldeConges { get; set; }
     public string Role { get; set; } = string.Empty;
-<<<<<<< HEAD
     public decimal SalaryBase { get; set; } = 3000m;
     public DateTime HireDate { get; set; } = DateTime.Today;
     public string ContractType { get; set; } = "CDI";
@@ -34,8 +29,6 @@ public class Employee
     public string Department { get; set; } = "Non assigné";
     public int? ManagerId { get; set; }
     public virtual Employee? Manager { get; set; }
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
 }
 
 

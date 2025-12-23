@@ -5,7 +5,6 @@ namespace PlateformeRHCollaborative.Web.Services;
 
 public class LeaveService
 {
-<<<<<<< HEAD
     private readonly ILeaveRepository _repo;
     private readonly ITeleworkRepository _teleworkRepo;
     private readonly IEmployeeRepository _employeeRepo;
@@ -56,7 +55,22 @@ public class LeaveService
             await CheckTeamLimitAsync(employee.ManagerId.Value, entity.StartDate, entity.EndDate);
         }
 
-        entity.Status = "Pending";
+        // 5. Auto-approbation (Si Directeur)
+        if (employee.Role == "Directeur")
+        {
+            entity.Status = "Approved";
+            entity.ApprovedAt = DateTime.Now;
+            entity.ApprovedById = employee.UserId;
+            
+            // Déduction immédiate du solde
+            employee.SoldeConges -= duration;
+            await _employeeRepo.UpdateAsync(employee);
+        }
+        else
+        {
+            entity.Status = "Pending";
+        }
+
         await _repo.AddAsync(entity);
     }
 
@@ -197,21 +211,3 @@ public class LeaveService
         return days;
     }
 }
-=======
-	private readonly ILeaveRepository _repo;
-
-	public LeaveService(ILeaveRepository repo)
-	{
-		_repo = repo;
-	}
-
-	public Task<IEnumerable<Leave>> GetAllAsync() => _repo.GetAllAsync();
-	public Task<Leave?> GetByIdAsync(int id) => _repo.GetByIdAsync(id);
-	public Task AddAsync(Leave entity) => _repo.AddAsync(entity);
-	public Task UpdateAsync(Leave entity) => _repo.UpdateAsync(entity);
-	public Task DeleteAsync(int id) => _repo.DeleteAsync(id);
-}
-
-
-
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d

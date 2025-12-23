@@ -1,0 +1,429 @@
+@model PlateformeRHCollaborative.Web.Models.ViewModels.DirectorDashboardVM
+
+@{
+    ViewData["Title"] = "Dashboard Exécutif";
+}
+
+<!-- Premium Executive Dashboard -->
+<div class="executive-dashboard">
+    
+    <!-- Header & KPIs -->
+    <div class="header-section">
+        <h1 class="page-title"><i class="fas fa-chart-line text-primary me-3"></i>Vue d'Ensemble Stratégique</h1>
+        <p class="text-muted">Analyse en temps réel de la performance organisationnelle</p>
+    </div>
+
+    <!-- Section 1 : KPI Cards -->
+    <div class="kpi-grid">
+        <!-- Taux de Présence Global -->
+        <div class="kpi-card border-primary">
+            <div class="kpi-icon bg-primary-light text-primary">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="kpi-content">
+                <div class="kpi-value">@Model.PresenceRate%</div>
+                <div class="kpi-label">Taux de Présence Global</div>
+            </div>
+            <div class="kpi-trend @(Model.PresenceRateTrend >= 0 ? "text-success" : "text-danger")">
+                <i class="fas @(Model.PresenceRateTrend >= 0 ? "fa-arrow-up" : "fa-arrow-down")"></i>
+                @Math.Abs(Model.PresenceRateTrend)% vs hier
+            </div>
+        </div>
+
+        <!-- Total Managers -->
+        <div class="kpi-card border-secondary">
+            <div class="kpi-icon bg-secondary-light text-secondary">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="kpi-content">
+                <div class="kpi-value">@Model.TotalManagers</div>
+                <div class="kpi-label">Managers Supervisés</div>
+            </div>
+        </div>
+
+        <!-- Pending Requests -->
+        <div class="kpi-card border-warning">
+            <div class="kpi-icon bg-warning-light text-warning">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="kpi-content">
+                <div class="kpi-value">@Model.TotalPendingRequests</div>
+                <div class="kpi-label">Demandes en Attente</div>
+            </div>
+        </div>
+
+        <!-- Strategic Alert Count -->
+        <div class="kpi-card border-danger">
+            <div class="kpi-icon bg-danger-light text-danger">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="kpi-content">
+                <div class="kpi-value">@Model.StrategicAlerts.Count</div>
+                <div class="kpi-label">Alertes Stratégiques</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2 : Charts (2 Columns) -->
+    <div class="charts-grid">
+        <!-- Col 1 -->
+        <div class="chart-col">
+            <div class="chart-card">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-pie me-2 text-primary"></i>Répartition par Département</h5>
+                </div>
+                <div class="chart-body">
+                    <canvas id="deptPieChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-bar me-2 text-primary"></i>Performance par Département</h5>
+                </div>
+                <div class="chart-body">
+                    <canvas id="deptBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Col 2 -->
+        <div class="chart-col">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h5><i class="fas fa-circle-notch me-2 text-primary"></i>Statut des Demandes</h5>
+                </div>
+                <div class="chart-body">
+                    <canvas id="statusDonutChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h5><i class="fas fa-chart-area me-2 text-primary"></i>Tendance Présence (6 mois)</h5>
+                </div>
+                <div class="chart-body">
+                    <canvas id="trendLineChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3 : Manager Overview & Alerts -->
+    <div class="bottom-grid">
+        <!-- Manager Table -->
+        <div class="manager-table-section chart-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-users-cog me-2 text-primary"></i>Vue d'ensemble des Managers</h5>
+                <input type="text" placeholder="Filtrer..." class="form-control form-control-sm w-auto" id="managerFilter">
+            </div>
+            <div class="table-responsive">
+                <table class="table align-middle table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Manager</th>
+                            <th>Département</th>
+                            <th class="text-center">Équipe</th>
+                            <th class="text-center">Présence Équipe</th>
+                            <th class="text-center">Demandes</th>
+                            <th class="text-center">Statut</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var mgr in Model.ManagerSummaries)
+                        {
+                            <tr>
+                                <td class="fw-bold">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-circle me-2">@mgr.Name.Substring(0,1)</div>
+                                        @mgr.Name
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-light text-dark border">@mgr.Department</span></td>
+                                <td class="text-center">@mgr.SubordinateCount</td>
+                                <td class="text-center">
+                                    @if(mgr.TeamPresenceRate > 90) { <span class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i>@mgr.TeamPresenceRate%</span> }
+                                    else if(mgr.TeamPresenceRate > 80) { <span class="text-warning fw-bold"><i class="fas fa-exclamation-circle me-1"></i>@mgr.TeamPresenceRate%</span> }
+                                    else { <span class="text-danger fw-bold"><i class="fas fa-times-circle me-1"></i>@mgr.TeamPresenceRate%</span> }
+                                </td>
+                                <td class="text-center">
+                                    @if(mgr.PendingRequestsCount > 0)
+                                    {
+                                        <span class="badge bg-warning text-dark">@mgr.PendingRequestsCount en attente</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">Aucune</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if(mgr.RequiresAttention)
+                                    {
+                                        <span class="badge bg-danger-subtle text-danger">Attention Requise</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success-subtle text-success">Performance OK</span>
+                                    }
+                                </td>
+                                <td class="text-end">
+                                    <button class="btn btn-sm btn-outline-primary rounded-pill">Détails</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Strategic Alerts Side Panel -->
+        <div class="alerts-section">
+            <div class="chart-card h-100">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="fas fa-bell me-2"></i>Alertes Stratégiques</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.StrategicAlerts.Any())
+                    {
+                        <ul class="alert-list">
+                            @foreach(var alert in Model.StrategicAlerts)
+                            {
+                                <li class="alert-item">
+                                    <i class="fas fa-exclamation-circle text-danger mt-1"></i>
+                                    <span>@alert</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-5">
+                            <i class="fas fa-check-circle fa-3x text-success mb-3 opacity-50"></i>
+                            <p>Aucune alerte critique.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- CSS Styles -->
+<style>
+    :root {
+        --primary: #2563EB;
+        --secondary: #7C3AED;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --danger: #EF4444;
+        --bg-light: #F9FAFB;
+        --text-dark: #111827;
+        --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .executive-dashboard {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-light);
+        min-height: 100vh;
+    }
+
+    .header-section { margin-bottom: 2rem; }
+    .page-title { font-weight: 800; color: #1E3A8A; font-size: 2rem; letter-spacing: -0.025em; }
+
+    /* KPI Grid */
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .kpi-card {
+        background: white;
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: var(--card-shadow);
+        transition: transform 0.2s, box-shadow 0.2s;
+        border-left: 5px solid transparent;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .kpi-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow-hover); }
+    .kpi-card.border-primary { border-left-color: var(--primary); }
+    .kpi-card.border-secondary { border-left-color: var(--secondary); }
+    .kpi-card.border-warning { border-left-color: var(--warning); }
+    .kpi-card.border-danger { border-left-color: var(--danger); }
+
+    .kpi-icon {
+        width: 48px; height: 48px;
+        border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .bg-primary-light { background: #DBEAFE; }
+    .bg-secondary-light { background: #EDE9FE; }
+    .bg-warning-light { background: #FEF3C7; }
+    .bg-danger-light { background: #FEE2E2; }
+
+    .kpi-value { font-size: 2.5rem; font-weight: 800; color: var(--text-dark); line-height: 1; margin-bottom: 0.5rem; }
+    .kpi-label { font-size: 0.875rem; font-weight: 600; color: #6B7280; text-transform: uppercase; letter-spacing: 0.05em; }
+    .kpi-trend { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 0.875rem; font-weight: 600; }
+
+    /* Charts Grid */
+    .charts-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .chart-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .card-header, .chart-header {
+        background: white;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid #E5E7EB;
+        font-weight: 700;
+        color: #1F2937;
+    }
+
+    .chart-body { padding: 1.5rem; position: relative; height: 350px; }
+
+    /* Bottom Grid */
+    .bottom-grid {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 2rem;
+    }
+
+    /* Table */
+    .manager-table-section {  }
+    .table thead th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #6B7280; font-weight: 600; }
+    .avatar-circle {
+        width: 32px; height: 32px;
+        background: var(--primary); color: white;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: bold; font-size: 0.85rem;
+    }
+
+    /* Alerts */
+    .alerts-section { }
+    .alert-list { list-style: none; padding: 0; margin: 0; }
+    .alert-item {
+        display: flex; gap: 1rem;
+        padding: 1rem;
+        border-bottom: 1px solid #F3F4F6;
+        align-items: start;
+        color: #4B5563;
+        font-size: 0.95rem;
+    }
+    .alert-item:last-child { border-bottom: none; }
+
+    /* Responsive */
+    @@media (max-width: 1200px) {
+        .charts-grid, .bottom-grid { grid-template-columns: 1fr; }
+    }
+</style>
+
+<!-- Chart.js Integration -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Data from Model
+        const deptLabels = @Json.Serialize(Model.DepartmentPerformance.Select(d => d.Name));
+        const deptCounts = @Json.Serialize(Model.DepartmentPerformance.Select(d => d.EmployeeCount));
+        const deptPresence = @Json.Serialize(Model.DepartmentPerformance.Select(d => 100 - d.AbsenceRate)); // Inverting Absence to Presence
+        
+        const statusLabels = @Json.Serialize(Model.RequestStatusDistribution.Select(s => s.Status));
+        const statusCounts = @Json.Serialize(Model.RequestStatusDistribution.Select(s => s.Count));
+        
+        const trendMonths = @Json.Serialize(Model.PresenceTrendData.Select(m => m.Month));
+        const trendRates = @Json.Serialize(Model.PresenceTrendData.Select(m => m.Rate));
+
+        // 1. Pie Chart: Dept Distribution
+        new Chart(document.getElementById('deptPieChart'), {
+            type: 'pie',
+            data: {
+                labels: deptLabels,
+                datasets: [{
+                    data: deptCounts,
+                    backgroundColor: ['#2563EB', '#7C3AED', '#10B981', '#F59E0B', '#EF4444', '#6366F1'],
+                    borderWidth: 0
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 2. Bar Chart: Performance
+        new Chart(document.getElementById('deptBarChart'), {
+            type: 'bar',
+            data: {
+                labels: deptLabels,
+                datasets: [{
+                    label: 'Taux de Présence (%)',
+                    data: deptPresence,
+                    backgroundColor: deptPresence.map(v => v > 95 ? '#10B981' : v > 90 ? '#F59E0B' : '#EF4444'),
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true, maintainAspectRatio: false,
+                scales: { x: { min: 0, max: 100 } },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // 3. Donut Chart: Status
+        new Chart(document.getElementById('statusDonutChart'), {
+            type: 'doughnut',
+            data: {
+                labels: statusLabels,
+                datasets: [{
+                    data: statusCounts,
+                    backgroundColor: ['#10B981', '#F59E0B', '#EF4444'],
+                    borderWidth: 0,
+                    cutout: '70%'
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 4. Line Chart: Trend
+        new Chart(document.getElementById('trendLineChart'), {
+            type: 'line',
+            data: {
+                labels: trendMonths,
+                datasets: [{
+                    label: 'Taux de Présence Global',
+                    data: trendRates,
+                    borderColor: '#2563EB',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { min: 80, max: 100 } },
+                plugins: { legend: { display: false } }
+            }
+        });
+    });
+</script>

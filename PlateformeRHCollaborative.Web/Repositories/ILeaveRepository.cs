@@ -11,13 +11,18 @@ public interface ILeaveRepository
 	Task AddAsync(Leave entity);
 	Task UpdateAsync(Leave entity);
 	Task DeleteAsync(int id);
-<<<<<<< HEAD
 
     Task<bool> HasOverlapAsync(int employeeId, DateTime start, DateTime end);
     Task<int> GetApprovedCountForTeamAsync(int managerId, DateTime start, DateTime end);
     Task<IEnumerable<Leave>> GetApprovedLeavesByEmployeeIdAsync(int employeeId);
-=======
->>>>>>> 99db1a64cfe1641f1f5fdfba5b7e2f15e348909d
+    Task<IEnumerable<Leave>> GetLeavesByStatusAsync(string status);
+    Task<int> GetPendingCountAsync(int? managerId = null); // if managerId null, global count
+    Task<int> GetApprovedCountAsync();
+    Task<int> GetTotalDaysTakenAsync();
+    Task<IEnumerable<Leave>> GetRecentRequestsByEmployeeIdAsync(int employeeId, int count);
+    Task<IEnumerable<Leave>> GetRecentRequestsGlobalAsync(int count);
+    Task<IEnumerable<Leave>> GetPendingLeavesByManagerIdAsync(int managerId);
+    Task<IEnumerable<Leave>> GetApprovedLeavesForDateAsync(DateTime date);
 }
 
 
