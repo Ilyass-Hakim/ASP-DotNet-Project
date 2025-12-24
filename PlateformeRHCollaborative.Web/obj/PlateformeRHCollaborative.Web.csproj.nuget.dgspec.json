@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project - Copie\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj": {}
+    "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_proj\\ASP-DotNet-Project\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project - Copie\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj": {
+    "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_proj\\ASP-DotNet-Project\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project - Copie\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj",
+        "projectUniqueName": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_proj\\ASP-DotNet-Project\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj",
         "projectName": "PlateformeRHCollaborative.Web",
-        "projectPath": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project - Copie\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj",
+        "projectPath": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_proj\\ASP-DotNet-Project\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj",
         "packagesPath": "C:\\Users\\ASUS ROG G16\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project - Copie\\PlateformeRHCollaborative.Web\\obj\\",
+        "outputPath": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_proj\\ASP-DotNet-Project\\PlateformeRHCollaborative.Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

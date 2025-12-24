@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wAEKWPS+2N0=",
+  "dgSpecHash": "tO2EaNe+/Mg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_project - Copie\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj",
+  "projectFilePath": "C:\\Users\\ASUS ROG G16\\Desktop\\dotnet_proj\\ASP-DotNet-Project\\PlateformeRHCollaborative.Web\\PlateformeRHCollaborative.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ASUS ROG G16\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\ASUS ROG G16\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
